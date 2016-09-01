@@ -1,0 +1,84 @@
+<link href="/css/font-awesome.min.css" rel="stylesheet">
+<link href='https://fonts.googleapis.com/css?family=Roboto:500,400,300' rel='stylesheet' type='text/css'>
+<link href="/css/order.css" rel="stylesheet">
+
+<datalist id="pickup-times">
+  <!-- inserted by js -->
+</datalist>
+
+<section class="container" id="order-form">
+  <% if @orders.size > 0 %>
+
+  <% if @user.first_name != nil && @user.last_name != nil && @user.email != nil && @user.phone != nil # User contact info already saved %>
+  <div class="first-section no-missing-data">
+    <from class="form not-first-order">
+      <label for="pickup-time">Email</label>
+      <input type="email" name="user-email" class="user-email" value="<%= @user.email %>" readonly>
+      <label for="pickup-time">Récupérer la commande à partir de</label>
+      <input type="text" name="pickup-time" list="pickup-times" class="pickup-time" value="">
+      <button type="submit" class="order">Commander <i class="fa fa-chevron-right" aria-hidden="true"></i></button>
+      <p class="bottom">
+        Créer un nouveau compte ? <a class="create-account" href="#not-first-order">Cliquez ici</a> <br/>
+        Utiliser une autre adresse e-mail ? <a class="change-email" href="#not-first-order">Cliquez ici</a>
+      </p>
+    </from>
+  </div>
+
+  <style media="screen">
+    div.missing-data {
+      display: none;
+    }
+  </style>
+  <% end # User is missing contact information %>
+  <div class="form-container first-section missing-data">
+    <form class="form first-order">
+      <label for="user-first-name">Prénom</label>
+      <input type="text" name="user-first-name" placeholder="Prénom" class="user-first-name">
+      <label for="user-last-name">Nom</label>
+      <input type="text" name="user-last-name" placeholder="Nom" class="user-last-name">
+      <label for="user-email">Email</label>
+      <input type="email" name="user-email" placeholder="exemple@email.com" class="user-email">
+      <label for="user-phone">Phone</label>
+      <input type="tel" name="user-phone" placeholder="+33 6 12 34 56 78" class="user-phone">
+      <label for="pickup-time">Récupérer la commande à partir de</label>
+      <input type="text" name="pickup-time" list="pickup-times" class="pickup-time" value="">
+      <button type="submit" class="order">Commander <i class="fa fa-chevron-right" aria-hidden="true"></i></button>
+      <p class="bottom">
+        Déjà commandé chez nous ? <a class="not-new" href="#first-order">Cliquez ici</a>
+      </p>
+    </form>
+
+    <form class="form not-first-order" style="display:none;">
+      <label for="user-email">Email</label>
+      <input type="email" name="user-email" placeholder="exemple@email.com" class="user-email">
+      <label for="pickup-time">Récupérer la commande à partir de</label>
+      <input type="text" name="pickup-time" list="pickup-times" class="pickup-time" value="">
+      <button type="submit" class="order">Commander <i class="fa fa-chevron-right" aria-hidden="true"></i></button>
+      <p class="bottom">
+        Jamais commandé chez nous ? <a class="new" href="#not-first-order">Cliquez ici</a>
+      </p>
+    </form>
+  </div>
+
+</section> <!-- /#order-form -->
+
+<div class="alert-message">
+  <div class="message">
+
+  </div>
+</div>
+
+<% else %>
+  <h1>Votre panier est vide. Ajoutez des produits au panier avant de commander.</h1>
+<% end %>
+
+<%erb :footer%>
+
+<!-- Add needed scripts -->
+<script src="/js/jquery.js"></script>
+<script src="/js/jquery.formatter.min.js"></script>
+<script src="/js/moment.min.js"></script>
+<!-- <script src="/js/moment-timezone.min.js"></script> -->
+<script src="/js/moment-timezone-with-data.min.js"></script>
+
+<script type="text/javascript" src="js/order.js"></script>

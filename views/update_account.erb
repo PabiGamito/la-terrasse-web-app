@@ -1,0 +1,29 @@
+<div class="container">
+  <label for="first_name">Prénom</label>
+  <input type="text" name="first_name" value="<%= @user.first_name.capitalize %>">
+  <label for="last_name">Nom</label>
+  <input type="text" name="last_name" value="<%= @user.last_name.capitalize %>">
+  <label for="email">Adresse email</label>
+  <input type="hidden" name="initial-email" value="<%= @user.email.downcase %>">
+  <input type="email" name="email" value="<%= @user.email.downcase %>">
+  <label for="phone">Téléphone</label>
+  <input type="tel" name="phone" value="<%= "0#{@user.phone.to_s}".gsub(/(.{2})(?=.)/, '\1 \2') %>">
+</div>
+
+<script src="/js/jquery.js"></script>
+<script type="text/javascript">
+  $("input").on("change", function(){
+    $.post(
+      "/update-account",{
+        email: $("input[name='initial-email']").val(),
+        update: $(this).attr("name"),
+        data: $(this).val()
+      }, function(data) {
+        $("input[name='first_name']").val(data.first_name);
+        $("input[name='last_name']").val(data.last_name);
+        $("input[name='initial-email']").val(data.email);
+        $("input[name='phone']").val(data.phone);
+      }
+    );
+  });
+</script>

@@ -1,0 +1,160 @@
+<%= erb :homeSlider %>
+
+<section id="work-process" class="hidden-xs">
+	<div class="container">
+
+		<div class="section-header">
+			<h1 style="visibility: visible; animation-name: fadeInDown; line-height: 180%;color:#ffffff" class="section-title text-center wow fadeInDown animated">
+                la Terrasse
+                <span>de Saint Germain</span><br/>
+                <small style="color:#ec7500">Terrasse, Brasserie, Pizzeria</small>
+            </h1>
+			<p style="visibility: visible; animation-name: fadeInDown;text-align:justify" class="text-center wow fadeInDown animated">
+				Vous souhaitez déjeuner dans une
+				<b>ambiance chaleureuse</b>, dans un
+				<b>cadre rafiné</b> ou en
+				<b>terrasse</b> ?
+				<b>Jean-Marc Schirrmeister</b> vous accueille dans son nouveau
+				<b>restaurant à Saint Germain au Mont d'Or</b>, à deux pas de Lyon, entre Neuville sur Saône, Quincieux et Chasselay.
+				<b>La Terrasse de Saint Germain</b> vous propose des mets de
+				<b>qualité</b> concoctés avec soin par notre
+				<b>chef Stéphane</b>. C'est également à base de
+				<b>produits frais</b> avec des
+				<b>préparations maison</b> que
+				<b>Tonio</b>, Pizzaïolo authentique vous préparera des
+				<b>pizzas savoureuses</b>.
+			</p>
+			<p style="visibility: visible; animation-name: fadeInDown;text-align:justify" class="text-center wow fadeInDown animated">
+				Nous sommes ouverts
+				<b>tous les midis, du lundi au samedi</b> et
+				<b>tous les soirs du mercredi au samedi</b>. Que vous soyez seuls, en famille, entre amis ou en groupes, vous trouverez toutes les raisons de passer un moment de détente et de convivialité. Voici les services que nous vous proposons tout au long de l'année :
+			</p>
+		</div>
+
+		<div class="row text-center">
+			<div class="col-md-2 col-md-4 col-xs-6">
+				<div style="visibility: visible; animation-duration: 400ms; animation-delay: 0ms; animation-name: fadeInUp;" class="wow fadeInUp animated" data-wow-duration="400ms" data-wow-delay="0ms">
+					<div class="icon-circle">
+						<img src="/images/sun.svg" style="width:60%;margin-top:-8px;margin-left:1px" />
+					</div>
+					<h3>Terrasse</h3>
+				</div>
+			</div>
+			<div class="col-md-2 col-md-4 col-xs-6">
+				<div style="visibility: visible; animation-duration: 400ms; animation-delay: 100ms; animation-name: fadeInUp;" class="wow fadeInUp animated" data-wow-duration="400ms" data-wow-delay="100ms">
+					<div class="icon-circle">
+						<img src="/images/restaurant.svg" style="width:60%;margin-top:-12px;margin-left:1px" />
+					</div>
+					<h3>Brasserie</h3>
+				</div>
+			</div>
+			<div class="col-md-2 col-md-4 col-xs-6">
+				<div style="visibility: visible; animation-duration: 400ms; animation-delay: 200ms; animation-name: fadeInUp;" class="wow fadeInUp animated" data-wow-duration="400ms" data-wow-delay="200ms">
+					<div class="icon-circle">
+						<img src="/images/pizzas.svg" style="width:60%;margin-top:-14px;margin-left:1px" />
+					</div>
+					<h3>Pizzeria</h3>
+				</div>
+			</div>
+			<div class="col-md-2 col-md-4 col-xs-6">
+				<div style="visibility: visible; animation-duration: 400ms; animation-delay: 300ms; animation-name: fadeInUp;" class="wow fadeInUp animated" data-wow-duration="400ms" data-wow-delay="300ms">
+					<div class="icon-circle">
+						<img src="/images/wine.svg" style="width:60%;margin-top:-12px;margin-left:2px" />
+					</div>
+					<h3>Vins</h3>
+				</div>
+			</div>
+			<div class="col-md-2 col-md-4 col-xs-6">
+				<div style="visibility: visible; animation-duration: 400ms; animation-delay: 300ms; animation-name: fadeInUp;" class="wow fadeInUp animated" data-wow-duration="400ms" data-wow-delay="300ms">
+					<div class="icon-circle">
+						<img src="/images/toast.svg" style="width:60%;margin-top:-12px;margin-left:1px" />
+					</div>
+					<h3>Soirées</h3>
+				</div>
+			</div>
+			<div class="col-md-2 col-md-4 col-xs-6">
+				<div style="visibility: visible; animation-duration: 400ms; animation-delay: 200ms; animation-name: fadeInUp;" class="wow fadeInUp animated" data-wow-duration="400ms" data-wow-delay="200ms">
+					<div class="icon-circle">
+						<img src="/images/logout.svg" style="width:60%;margin-top:-8px;margin-left:7px" />
+					</div>
+					<h3>Emporter</h3>
+				</div>
+			</div>
+		</div>
+</section>
+
+<section id="pricing">
+	<div class="container">
+		<div class="section-header">
+			<h2 class="section-title text-center wow fadeInDown">Nos Pizzas</h2>
+			<p class="text-center wow fadeInDown">Nous vous proposons des
+				<b>pizzas à emporter</b> midi et soir à nos horaires d'ouverture.
+				<br/> Vous trouverez ci-dessous les mêmes pizzas que dans notre restaurant, avec la même
+				<br/>
+				<b>qualité de fabrication</b>, une
+				<b>pâte maison</b> et des
+				<b>ingrédients frais toujours aussi délicieux</b>.
+			</p>
+		</div>
+
+		<link rel="stylesheet" href="/css/product.css">
+		<% @products.each_with_index do |product, index| %>
+			<% @product = product; @index = index %>
+			<%= erb :product %>
+		<%end%>
+
+	</div>
+</section>
+<!--/#pricing-->
+
+<!-- TODO: Change map style -->
+
+<section id="contact" style="border-top:5px solid #ffffff;border-bottom:5px solid #c4b58a">
+	<div id="google-map" style="height:650px" data-latitude="45.883619" data-longitude="4.803131"></div>
+	<div class="container-wrapper">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-4 col-sm-offset-8">
+					<div class="contact-form">
+						<h3>Nos coordonnées</h3>
+
+						<address>
+                                <strong>La Terrasse de Saint Germain</strong><br>
+                                1 Place du 11 novembre 1918<br>
+                                69650 Saint Germain au Mont d'Or<br>
+                                <a href="tel:0472260982" style="color:#ec7500;font-size:170%">
+                                    <b>
+                                        <i class="fa fa-phone" aria-hidden="true" style="margin-right:5px"></i>
+                                        04 72 26 09 82<b></a>
+                                    </address>
+
+						<div class="alert alert-success hidden" id="contactSuccess">
+							<strong>Message envoyé !</strong> Votre message a bien été envoyé, nous reviendrons vers vous rapidement.
+						</div>
+
+						<div class="alert alert-danger hidden" id="contactError">
+							<strong>Erreur !</strong> Il y a eu une erreur lors du traitement de votre message... Il n'a pas été envoyé. Merci de nous contacter par téléphone
+							<br/>au 04 72 26 09 82
+						</div>
+
+						<form id="contactForm" action="send-contact-email" method="POST" name="contact-form">
+							<div class="form-group">
+								<input type="text" name="name" class="form-control" placeholder="Nom et prénom" required>
+							</div>
+							<div class="form-group">
+								<input type="email" name="email" class="form-control" placeholder="Email" required>
+							</div>
+							<div class="form-group">
+								<input type="text" name="subject" class="form-control" placeholder="Objet" required>
+							</div>
+							<div class="form-group">
+								<textarea name="message" class="form-control" rows="8" placeholder="Votre message" required></textarea>
+							</div>
+							<input type="submit" value="Envoyer le message" class="btn btn-primary" data-loading-text="Envoi...">
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

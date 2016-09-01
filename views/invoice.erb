@@ -1,0 +1,57 @@
+<!-- http://codepen.io/supah/pen/jqbMYG -->
+<link rel="stylesheet" href="/css/invoice.css">
+
+<% user = User.get(@orders[0].user_id) %>
+
+<section class="container">
+  <table class="top-content">
+    <tr>
+      <td class="message">
+        Bonjour <%= name = "#{user.first_name.capitalize} #{user.last_name.capitalize}"%>, <br/>
+        <% if @orders[0].confirmed %>
+          Merci d'avoir commandé chez nous. Merci pour votre commande.
+        <% else %>
+          Merci pour votre commande. <b>Veuillez la confirmer depuis votre email.</b>
+        <% end %>
+      </td>
+      <td class="date">
+        <%= @orders[0].submitted_at.to_time.strftime("%d/%m/%Y")%>
+      </td>
+    </tr>
+  </table>
+
+  <table class="invoice">
+    <thead>
+      <tr>
+        <th width="50%" align="left">Article</th>
+        <th align="center">Quantité</th>
+        <th align="right">Sous-total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% total = 0 %>
+      <%@orders.each do |order|%>
+      <tr>
+        <%product = Product.get(order.product_id)%>
+        <td><%= product.name.capitalize %></td>
+        <td><%= order.amount %></td>
+        <td><%= '%.2f' % product.price %> &euro;</td>
+        <%total += product.price * order.amount%>
+      </tr>
+      <%end%>
+      <tr class="total">
+        <td></td>
+        <td>Total</td>
+        <td><%= '%.2f' % total %> &euro;</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="client-info">
+    <h1>Vos coordonées</h1>
+    <span class="identifier">Nom</span> <span><%= name %></span><br>
+    <span class="identifier">Tel</span> <span><%= "0#{user.phone.to_s}".gsub(/(.{2})(?=.)/, '\1 \2') %></span><br>
+    <span class="identifier">Email</span> <span><%= user.email %></span><br>
+  </div>
+
+</section>

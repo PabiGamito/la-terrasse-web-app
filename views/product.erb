@@ -1,0 +1,60 @@
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+
+<%
+  if Order.count(user_id: @user.id, product_id: @product.id, submitted: false) > 0
+    in_cart = true
+    order = Order.first(user_id: @user.id, product_id: @product.id)
+    amount = order.amount
+    price = @product.price*amount
+  else
+    in_cart = false
+    amount = 1
+    price = @product.price
+  end
+%>
+
+<%= (@index%4 == 0 && @index!=0) ? '</div>' : '' %>
+<%= @index%4 == 0 ? '<div class="row is-table-row">' : '' %>
+
+<div class="col-sm-6 col-md-3">
+  <div class="card">
+    <div class="product">
+      <div class='product-name'>
+        <img src="/images/pizzas.svg" style="width:40%;margin-bottom:10px" /><br>
+        <%= @product.name %>
+      </div>
+      <div class="product-ingrediants">
+        <% ingredients = JSON.parse(@product.ingredients) %>
+        <% if ingredients["before"].length > 0%>
+          <li><b>Avant Cuisson</b></li>
+          <% ingredients["before"].each do |ingredient|%>
+            <li><%= ingredient.capitalize %></li>
+          <% end %>
+        <% end %>
+        <% if ingredients["after"].length > 0%>
+          <li style="padding-top:20px">
+            <b>Après Cuisson</b>
+          </li>
+          <% ingredients["after"].each do |ingredient|%>
+            <li><%= ingredient.capitalize %></li>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+    <div class='product-desc'>
+      <div class="add-to-cart <%=in_cart ? "in-cart" : "not-in-cart"%>" product-id="<%= @product.id %>">
+        <i class="fa fa-cart-plus" aria-hidden="true"></i>
+      </div>
+      <div class='price' unit-price="<%= @product.price %>"><%= "%.2f" % price %> &euro;</div>
+      <div class='quantity'>
+        <a class="fa fa-minus" aria-hidden="true"></a>
+        <input type="text" name="quantity" value="<%= amount %>" min="1" max="99">
+        <a class="fa fa-plus" aria-hidden="true"></a>
+      </div>
+      <!-- <div class='add-to-cart <%= in_cart ? "in-cart" : "not-in-cart" %>' product-id="<%= @product.id %>">
+        <i class='fa fa-plus' aria-hidden='true'></i>
+        <span><%= in_cart ? "Suprimer du Panier" : "Ajouter au Panier" %></span>
+      </div> -->
+    </div>
+  </div>
+</div>

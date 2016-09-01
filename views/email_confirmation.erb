@@ -1,0 +1,55 @@
+<%
+name = "#{@user.first_name.capitalize} #{@user.last_name.capitalize}"
+total = 0
+%>
+<p>
+  Bonjour <%= name %>,
+</p>
+<p>
+  Merci pour votre command.
+</p>
+<p>
+  Pour que votre command passe en cuisine veuillez bien confirmer votre commande en ouvrant le lien ci-dessous.<br>
+  <a href="<%= @confirmation_link %>"><%= @confirmation_link %></a><br>
+  En ouvrant ce lien vous confirmez que tout l'information ci-dessous est correcte.
+</p>
+
+<h1>Votre Commande</h1>
+<a href="#">Modifier</a>
+<table>
+  <thead>
+    <th>
+      <td></td>
+    </th>
+  </thead>
+  <tbody>
+    <% @orders.each do |order| %>
+    <tr>
+      <td><%= order.amount %>x</td>
+      <% product = Product.get(order.product_id) %>
+      <td><%= product.name.capitalize %></td>
+      <% price = product.price*order.amount %>
+      <td><%= "%.2f" % price %> &euro;</td>
+      <% total += price %>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+Total: <span><%= total %> &euro;</span>
+
+<h1>Vos Coordonnées</h1>
+<a href="#">Modifier</a>
+<table>
+  <tr>
+    <td>Nom</td>
+    <td><%= name %></td>
+  </tr>
+  <tr>
+    <td>Téléphone</td>
+    <td><%= @user.phone.to_s.gsub(/(.{2})/, '\1 ') %></td>
+  </tr>
+  <tr>
+    <td>Adresse mail</td>
+    <td><%= @user.email %></td>
+  </tr>
+</table>

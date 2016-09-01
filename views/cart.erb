@@ -1,0 +1,34 @@
+<style media="screen">
+.cart-title {
+  font-family: 'Channel', sans-serif;
+  font-size: 20px;
+  padding-top: 15px;
+  color: rgb(108, 88, 79);
+}
+</style>
+
+<h2 class="cart-title">Votre Panier</h2>
+  <% if @orders.length > 0 %>
+  <table class="table table-condensed">
+    <tbody>
+      <% total = 0 %>
+      <% @orders.each do |order| %>
+      <% product = Product.first(id: order.product_id)%>
+      <% total +=  product.price*order.amount%>
+      <tr>
+        <td><%= order.amount %>x</td>
+        <td><%= product.name.capitalize%></td>
+        <td><%="%.2f" % (product.price*order.amount)%> &euro;</td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <div class="total">
+    Total: <span><%= "%.2f" % total %> &euro;</span>
+  </div>
+  <a href="/order">
+    <button class="btn btn-primary" name="order-button">Passer la Commande</button>
+  </a>
+<% else %>
+  Votre panier est vide
+<% end %>
