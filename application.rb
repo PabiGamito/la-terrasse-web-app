@@ -446,29 +446,42 @@ end
 
 # SEARCH
 post "search" do
+  # Search an order by first and last name, phone number, email
   queries = params[:query].gsub(/\s+/m, ' ').strip.split(" ")
-  data = []
+  data = {}
+  found_users = []
 
   queries.each do |query|
     # Find User
     if users = User.all(first_name: query.downcase)
       users.each do |user|
-        data << user
+        found_users << user
       end
-    elsif User.all(last_name: query.downcase)
+    elsif user = User.all(last_name: query.downcase)
       users.each do |user|
-        data << user
+        found_users << user
       end
-    elsif User.all(last_name: query.downcase)
+    elsif users = User.all(phone: query.to_i)
       users.each do |user|
-        data << user
+        found_users << user
       end
-    # TODO: Elsif phone number
+    elsif users = User.all(email: query.downcase)
+      users.each do |user|
+        found_users << user
+      end
     end
+
+    found_users.each do |user|
+      if data[user.id]
+        data[user.id][:times] += 1
+      else
+        data[user.id] = {user: user, times: 1}
+      end
+    end
+
   end
 
-  # final_data = [{object: User, amount: 3}, ]
-  return final_data.to_json
+  return data.to_json
 end
 
 # ############### #
