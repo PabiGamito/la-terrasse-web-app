@@ -351,8 +351,8 @@ end
 
 # LOAD ADMIN PAGE
 get "/admin" do
-  @uncompleted_orders = Order.all(confirmed: true, completed: false, :order => [ :confirmed_at ])
-  @completed_orders = Order.all(completed: true, :order => [ :completed_at ], :limit => 10)
+  @uncompleted_orders = CombinedOrder.all(confirmed: true, completed: false, :order => [ :confirmed_at ])
+  @completed_orders = CombinedOrder.all(completed: true, :order => [ :completed_at ], :limit => 10)
 
   @logged_in = admin_logged_in?
 
