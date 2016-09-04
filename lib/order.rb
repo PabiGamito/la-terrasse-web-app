@@ -4,6 +4,7 @@ class Order
   property :id,           Serial
   property :amount,       Integer, :default => 1
   property :submitted,    Boolean, :default => false
+  property :done,         Boolean, :default => false
   property :created_at,   DateTime
   property :updated_at,   DateTime
 

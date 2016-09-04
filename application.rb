@@ -261,7 +261,7 @@ post "/order" do # params: first_order, email, name, phone
     end
   end
 
-  combined_order = CombinedOrder.first(user_id: user.id, submitted: false)
+  combined_order = CombinedOrder.first(user_id: user.id, submitted: false, pickup_time: pickup_time)
   if !combined_order
     error = "order is empty or already sent : check your email or resubmit an order"
     return {success: false, error: error, error_id: 7, first_order: first_order}.to_json
@@ -312,8 +312,8 @@ get "/invoice" do
   user = User.first(email: params[:email])
   if user_hash(user) == params[:hash]
     submitted_time = Time.at(params[:ts].to_i)
-    combined_order = CombinedOrder.first(user_id: user.id, submitted_at: submitted_time)
-    @orders = Order.all(combined_order_id: combined_order.id)
+    @combined_order = CombinedOrder.first(user_id: user.id, submitted_at: submitted_time)
+    @orders = Order.all(combined_order_id: @combined_order.id)
     if @orders.length > 0
       return erb :invoice, :layout => false
     end
@@ -354,9 +354,6 @@ end
 
 # LOAD ADMIN PAGE
 get "/admin" do
-  @uncompleted_orders = CombinedOrder.all(confirmed: true, completed: false, :order => [ :confirmed_at ])
-  @completed_orders = CombinedOrder.all(completed: true, :order => [ :completed_at ], :limit => 10)
-
   @logged_in = admin_logged_in?
 
   erb :admin_panel, :layout => false
@@ -373,15 +370,27 @@ post "/admin-login" do
 end
 
 get "/orders" do
-  if Admin.get(session[:admin_id]) != nil
+  if admin_logged_in?
+    # Check if combined order is complete by iterating through all orders in combined_order
+    CombinedOrder.all(confirmed: true, completed: false, :order => [ :confirmed_at ]).each do |combined_order|
+      Order.all(combined_order_id: combined_order.id).each do |order|
+        completed = true
+        if !order.done
+          completed = false
+          break
+        end
+      end
+      if complete
+        combined_order.update(completed: true)
+      end
+    end
     @todo_orders = CombinedOrder.all(confirmed: true, completed: false, :order => [ :confirmed_at ])
     @ready_orders = CombinedOrder.all(completed: true, delivered: false, :order => [ :completed_at ])
     @delivered_orders = CombinedOrder.all(delivered: true, :order => [ :delivered_at ], :limit => 10)
+    erb :admin_show_orders, :layout => false
   else
     redirect '/admin'
   end
-
-  erb :admin_show_orders, :layout => false
 end
 
 # MARK ORDER AS COMPLETE
@@ -425,7 +434,7 @@ post "/order-ready-time" do
 end
 
 # MARK ORDER AS PICKUPED/DEVILVERED & CHARGE USER
-post "delivered" do
+post "/delivered" do
   user = get_user
   order = Order.get(params[:order_id].to_i)
   price = 0
@@ -449,7 +458,7 @@ post "delivered" do
 end
 
 # SEARCH
-post "search" do
+post "/search" do
   # Search an order by first and last name, phone number, email
   queries = params[:query].gsub(/\s+/m, ' ').strip.split(" ")
   data = {}

@@ -1,10 +1,8 @@
+<link rel="stylesheet" href="/css/font-awesome.min.css" media="screen" title="no title">
 <style media="screen">
   table tr th, table tr td {
     text-align: right;
     vertical-align: middle;
-  }
-  #todo, #done {
-    display: none;
   }
 </style>
 
@@ -33,63 +31,24 @@ end
 </datalist>
 
 <section id="todo">
-  <% if @todo_orders.length > 0 %>
-  <table class="table table-condensed table-striped table-responsive">
-    <thead>
-      <tr>
-        <th>Quantité</th>
-        <th>Pizza</th>
-        <th>Nom</th>
-        <th>Commandé</th>
-        <th>À récuperer</th>
-        <th>Prêt à</th>
-      </tr>
-    </thead>
-    <tbody>
-    <% @todo_orders.each do |order| %>
-      <tr>
-        <td><%= order.amount %>x </td>
-        <td><%= Product.get(order.product_id).name.capitalize %></td>
-        <td><%= "#{User.get(order.user_id).first_name.capitalize} #{User.get(order.user_id).last_name.capitalize}" %></td>
-        <td>il y a <%= timeAgo(order.confirmed_at.to_time) %></td>
-        <td>à partir de <%= order.pickup_time.to_time.strftime("%H:%M")%></td>
-        <td><input type="text" class="ready-time" list="ready-times" order-id="<%= order.id %>" value="<%= order.ready_time ? order.ready_time.to_time.strftime("%H:%M") : ""%>"></td>
-        <td><button class="completed btn btn-primary" order-id="<%= order.id %>">Prêt!</button></td>
-      </tr>
-    <% end %>
-    </tbody>
-  </table>
-  <% else %>
-    <h1 style="text-align: center;">Aucune commande</h1>
+  <% @todo_orders.each do |combined_order| %>
+    <div class="combined_order">
+      <% orders = Order.all(combined_order_id: combined_order.id) %>
+      <% orders.each do |order| %>
+        <div class="ordered_item">
+          <% if order.done %>
+          <i class="fa fa-check-circle-o" aria-hidden="true"></i>
+          <% else %>
+          <i class="fa fa-check-circle" aria-hidden="true"></i>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
   <% end %>
 </section>
 
 <section id="ready">
-  <table class="table table-condensed table-striped table-responsive">
-    <thead>
-      <tr>
-        <th>Quantité</th>
-        <th>Pizza</th>
-        <th>Nom</th>
-        <th>Commandé</th>
-        <th>À récuperer</th>
-      </tr>
-    </thead>
-    <tbody>
-    <% @ready_orders.each do |order| %>
-      <tr>
-        <td><%= order.amount %>x </td>
-        <td><%= Product.get(order.product_id).name.capitalize %></td>
-        <td><%= "#{User.get(order.user_id).first_name.capitalize} #{User.get(order.user_id).last_name.capitalize}" %></td>
-        <td>il y a <%= timeAgo(order.confirmed_at.to_time) %></td>
-        <td>à partir de <%= order.pickup_time.to_time.strftime("%H:%M")%></td>
-        <td>il y a <%= timeAgo(order.completed_at.to_time) %></td>
-        <!-- TODO: Add other buttons for step of completion  -->
-        <td><button type="button" class="uncompleted" order-id="<%= order.id %>">Plus Prêt...</button></td>
-      </tr>
-    <% end %>
-    </tbody>
-  </table>
+
 </section>
 
 <section id="delivered">

@@ -8,14 +8,14 @@
     <tr>
       <td class="message">
         Bonjour <%= name = "#{user.first_name.capitalize} #{user.last_name.capitalize}"%>, <br/>
-        <% if @orders[0].confirmed %>
+        <% if @combined_order.confirmed %>
           Merci d'avoir commandé chez nous. Merci pour votre commande.
         <% else %>
           Merci pour votre commande. <b>Veuillez la confirmer depuis votre email.</b>
         <% end %>
       </td>
       <td class="date">
-        <%= @orders[0].submitted_at.to_time.strftime("%d/%m/%Y")%>
+        <%= @combined_order.submitted_at.to_time.strftime("%d/%m/%Y")%>
       </td>
     </tr>
   </table>

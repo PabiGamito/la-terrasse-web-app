@@ -60,7 +60,7 @@ section {
 </nav>
 
 <div class="show-orders wood-background" style="min-height:100vh; margin-top:-100px; padding-top:150px;">
-  <%= erb :admin_show_orders %>
+  <!-- Stuff added in through AJAX -->
 </div>
 
 <script type="text/javascript">
@@ -119,9 +119,15 @@ section {
     }
   });
 
+  $.get("/orders", function(data) {
+      // On answer
+      $(".show-orders").html(data);
+    }
+  );
+
 // Auto update orders
 setInterval(function(){
-  $.get("/show-orders", function(data) {
+  $.get("/orders", function(data) {
       // On answer
       $(".show-orders").html(data);
     }
