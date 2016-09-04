@@ -289,9 +289,8 @@ post "/order" do # params: first_order, email, name, phone
   end
   combined_order.update(submitted: true, submitted_at: time)
 
-  invoice_link = "#{request.host}:#{request.port}/invoice?email=#{user.email}&ts=#{time.to_i}&hash=#{hash}"
-
-  return {success: true, redirect: invoice_link}.to_json
+  # invoice_link = "#{request.host}:#{request.port}/invoice?email=#{user.email}&ts=#{time.to_i}&hash=#{hash}"
+  redirect "/invoice?email=#{user.email}&ts=#{time.to_i}&hash=#{hash}"
 end
 
 # CHECKOUT
