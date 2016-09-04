@@ -261,7 +261,7 @@ post "/order" do # params: first_order, email, name, phone
     end
   end
 
-  combined_order = CombinedOrder.first(user_id: user.id, submitted: false, pickup_time: pickup_time)
+  combined_order = CombinedOrder.first(user_id: user.id, submitted: false)
   if !combined_order
     error = "order is empty or already sent : check your email or resubmit an order"
     return {success: false, error: error, error_id: 7, first_order: first_order}.to_json
@@ -278,7 +278,12 @@ post "/order" do # params: first_order, email, name, phone
 
   time = Time.now
 
-  confirmation_link = "#{request.host}:#{request.port}/email-confirmation?email=#{user.email}&ts=#{time.to_i}&hash=#{hash}"
+  if request.ssl?
+    http = "https"
+  else
+    http = "http"
+  end
+  confirmation_link = "#{http}://#{request.host}:#{request.port}/email-confirmation?email=#{user.email}&ts=#{time.to_i}&hash=#{hash}"
   account_modification_link = "#{request.host}:#{request.port}/update-account?email=#{user.email}&hash=#{hash}"
 
   send_confirmation_email(user, confirmation_link, account_modification_link, orders)
@@ -287,10 +292,10 @@ post "/order" do # params: first_order, email, name, phone
   orders.each do |order|
     order.update(submitted: true)
   end
-  combined_order.update(submitted: true, submitted_at: time)
+  combined_order.update(submitted: true, submitted_at: time, pickup_time: pickup_time)
 
   # invoice_link = "#{request.host}:#{request.port}/invoice?email=#{user.email}&ts=#{time.to_i}&hash=#{hash}"
-  redirect "/invoice?email=#{user.email}&ts=#{time.to_i}&hash=#{hash}"
+  return {success: true, redirect: "#{http}://#{request.host}:#{request.port}/invoice?email=#{user.email}&ts=#{time.to_i}&hash=#{hash}"}.to_json
 end
 
 # CHECKOUT
@@ -309,7 +314,13 @@ end
 
 # GET ORDER INVOICE
 get "/invoice" do
-  user = User.first(email: params[:email])
+  email = params[:email]
+  mail_domain = email.match(/\@(.*)(?=\.)/)[1] # me@gmail.com => gmail
+  # TODO: add other mail clients
+  if mail_domain == "gmail"
+    @mail_client_link = "https://www.gmail.com"
+  end
+  user = User.first(email: email)
   if user_hash(user) == params[:hash]
     submitted_time = Time.at(params[:ts].to_i)
     @combined_order = CombinedOrder.first(user_id: user.id, submitted_at: submitted_time)
@@ -380,7 +391,7 @@ get "/orders" do
           break
         end
       end
-      if complete
+      if completed
         combined_order.update(completed: true)
       end
     end

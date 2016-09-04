@@ -91,8 +91,8 @@ $( ".first-order button[type='submit'].order" ).click( function() {
 		},
 		function( data, status ) {
 			// On Response
-			if ( data.success && status === "success" ) {
-				handleOrderSuccess( data.email, data.order_ts );
+			if ( data.success ) {
+				handleOrderSuccess( data );
 			} else {
 				errorHandling( data.error_id, data );
 			}
@@ -120,11 +120,8 @@ $( ".not-first-order button[type='submit'].order" ).click( function() {
 		},
 		function( data, status ) {
 			// On Response
-			if ( status !== "success" ) {
-				errorHandling( status, [] );
-			}
 			if ( data.success ) {
-				handleOrderSuccess( data && status === "success" );
+				handleOrderSuccess( data );
 			} else {
 				errorHandling( data.error_id, data );
 			}
