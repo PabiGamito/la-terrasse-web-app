@@ -37,11 +37,11 @@ configure do
   Pony.options = {
     :via => :smtp,
     :via_options => {
-      :address              => 'smtp.la-terrasse-pizzeria.fr',
-      :port                 => '465',
+      :address              => 'smtp.gmail.com',
+      :port                 => '587',
       :enable_starttls_auto => true,
-      :user_name            => 'ne-pas-repondre@la-terrasse-pizzeria.fr',
-      :password             => 'nagX6!05',
+      :user_name            => 'pabiwebtest@gmail.com',
+      :password             => 'testaccount',
       :authentication       => :plain, # :plain, :login, :cram_md5, no auth by default
       :domain               => "localhost.localdomain"
     }
