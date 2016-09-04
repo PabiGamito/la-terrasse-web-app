@@ -262,8 +262,12 @@ post "/order" do # params: first_order, email, name, phone
   end
 
   combined_order = CombinedOrder.first(user_id: user.id, submitted: false)
-  orders = Order.all(user_id: user.id, submitted: false, combined_order_id: combined_order.id)
+  if !combined_order
+    error = "order is empty or already sent : check your email or resubmit an order"
+    return {success: false, error: error, error_id: 7, first_order: first_order}.to_json
+  end
 
+  orders = Order.all(user_id: user.id, submitted: false, combined_order_id: combined_order.id)
   if orders.length == 0
     error = "order is empty or already sent : check your email or resubmit an order"
     return {success: false, error: error, error_id: 7, first_order: first_order}.to_json
@@ -277,13 +281,13 @@ post "/order" do # params: first_order, email, name, phone
   confirmation_link = "#{request.host}:#{request.port}/email-confirmation?email=#{user.email}&ts=#{time.to_i}&hash=#{hash}"
   account_modification_link = "#{request.host}:#{request.port}/update-account?email=#{user.email}&hash=#{hash}"
 
-  combined_order.update(submitted: true, submitted_at: time)
   send_confirmation_email(user, confirmation_link, account_modification_link, orders)
 
   # README: Keep at end, so order only changes to submitted if everything else runs correctly
   orders.each do |order|
     order.update(submitted: true)
   end
+  combined_order.update(submitted: true, submitted_at: time)
 
   invoice_link = "#{request.host}:#{request.port}/invoice?email=#{user.email}&ts=#{time.to_i}&hash=#{hash}"
 
@@ -371,8 +375,9 @@ end
 
 get "/orders" do
   if Admin.get(session[:admin_id]) != nil
-    @uncompleted_orders = Order.all(confirmed: true, completed: false, :order => [ :confirmed_at ])
-    @completed_orders = Order.all(completed: true, :order => [ :completed_at ], :limit => 10)
+    @todo_orders = CombinedOrder.all(confirmed: true, completed: false, :order => [ :confirmed_at ])
+    @ready_orders = CombinedOrder.all(completed: true, delivered: false, :order => [ :completed_at ])
+    @delivered_orders = CombinedOrder.all(delivered: true, :order => [ :delivered_at ], :limit => 10)
   else
     redirect '/admin'
   end

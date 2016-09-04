@@ -2,45 +2,73 @@
 <link rel="stylesheet" href="/css/bootstrap.min.css">
 <script src="/js/jquery.js"></script>
 <script src="/js/bootstrap.min.js"></script>
-<link rel="stylesheet" href="/css/main.css">
+<style media="screen">
+nav {
+  width: 100%;
+  background-color: rgb(102, 88, 79);
+}
+
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  color: white;
+}
+
+nav li {
+  float: left;
+}
+
+nav li a {
+  display: block;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  border-bottom: 5px solid transparent;
+  padding: 20px 30px 15px 30px;
+}
+
+/* Change the link color to #111 (black) on hover */
+nav li a:hover {
+  border-bottom: 5px solid rgb(78, 54, 39);
+  text-decoration: none;
+  color: white;
+}
+nav li a:hover, nav li a:visited, nav li a:link, nav li a:active {
+  text-decoration: none;
+  color: white;
+}
+
+nav li a.active {
+  background-color: #111;
+}
+
+section {
+  display: none;
+}
+</style>
 
 <!-- TODO: Option to close orders for different reasons-->
-<header id="header">
-  <nav id="main-menu" class="navbar navbar-default navbar-fixed-top" role="banner" style="background-color:#f2eee3">
-    <div class="container">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="/"><img src="images/logo.png" alt="La Terrasse de Saint Germain au mont d'Or" style="height:100px;margin:-20px">
-        </a>
-      </div>
-
-      <div class="collapse navbar-collapse navbar-right">
-        <ul class="nav navbar-nav">
-          <li>
-            <a href="#todo">Commandes à préparer</a>
-          </li>
-          <li>
-            <a href="#done">Commandes déjà prêtes</a>
-          </li>
-          <li>
-            <a href="#done">Changer le mot de passe</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-</header>
+<nav>
+  <ul class="container">
+    <li>Search</li>
+    <li><a class="active" href="#todo">Faire</a></li>
+    <li><a href="#ready">Prêt</a></li>
+    <li><a href="#delivered">Livré</a></li>
+  </ul>
+</nav>
 
 <div class="show-orders wood-background" style="min-height:100vh; margin-top:-100px; padding-top:150px;">
   <%= erb :admin_show_orders %>
 </div>
 
 <script type="text/javascript">
+  $("nav ul li a").click(function(){
+    $("nav ul li a").removeClass("active");
+    $(this).addClass("active");
+  });
+
   $("body").on("click", ".completed", function(){
     $.post(
       "/order-completed",{
@@ -66,13 +94,21 @@
   });
 
   // Hide/show sections based on url hash value
-  if (window.location.hash === "") {
-    $("section#todo").show();
-    $(".nav li a[href=#todo]").parent().addClass("active");
-  } else {
-    $("section"+window.location.hash).show();
-    $(".nav li a[href="+window.location.hash+"]").parent().addClass("active");
+  function showHideSections() {
+    if (window.location.hash === "") {
+      $("section#todo").show();
+    } else {
+      $("section").hide();
+      $("section"+window.location.hash).show();
+      $("nav li a").removeClass("active");
+      $("nav li a[href="+window.location.hash+"]").addClass("active");
+    }
   }
+  showHideSections();
+
+  $(window).bind('hashchange', function() {
+    showHideSections();
+  });
 
   $(".nav li").click(function(){
     if (!$(this).hasClass("active")) {
@@ -83,13 +119,14 @@
     }
   });
 
+// Auto update orders
 setInterval(function(){
   $.get("/show-orders", function(data) {
       // On answer
       $(".show-orders").html(data);
     }
   );
-}, 1000*60);
+}, 1000*30);
 
 </script>
 

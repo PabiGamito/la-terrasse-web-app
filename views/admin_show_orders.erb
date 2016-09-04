@@ -33,7 +33,7 @@ end
 </datalist>
 
 <section id="todo">
-  <% if @uncompleted_orders.length > 0 %>
+  <% if @todo_orders.length > 0 %>
   <table class="table table-condensed table-striped table-responsive">
     <thead>
       <tr>
@@ -46,7 +46,7 @@ end
       </tr>
     </thead>
     <tbody>
-    <% @uncompleted_orders.each do |order| %>
+    <% @todo_orders.each do |order| %>
       <tr>
         <td><%= order.amount %>x </td>
         <td><%= Product.get(order.product_id).name.capitalize %></td>
@@ -64,7 +64,7 @@ end
   <% end %>
 </section>
 
-<section id="done">
+<section id="ready">
   <table class="table table-condensed table-striped table-responsive">
     <thead>
       <tr>
@@ -73,11 +73,10 @@ end
         <th>Nom</th>
         <th>Commandé</th>
         <th>À récuperer</th>
-        <th>Prêt</th>
       </tr>
     </thead>
     <tbody>
-    <% @completed_orders.each do |order| %>
+    <% @ready_orders.each do |order| %>
       <tr>
         <td><%= order.amount %>x </td>
         <td><%= Product.get(order.product_id).name.capitalize %></td>
@@ -91,6 +90,10 @@ end
     <% end %>
     </tbody>
   </table>
+</section>
+
+<section id="delivered">
+
 </section>
 
 <script src="/js/jquery.formatter.min.js"></script>

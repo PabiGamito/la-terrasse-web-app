@@ -1,0 +1,100 @@
+body {
+  background: rgb(242, 238, 227);;
+  font-family: "Roboto", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.container {
+  background: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 360px;
+  text-align: center;
+  padding: 45px;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table.top-content {
+  margin-bottom: 45px;
+}
+table.top-content .message {
+  width: 50%;
+  font-size: 12px;
+  color: #646a6e;
+  font-family: 'Open Sans', sans-serif;
+  vertical-align: top;
+  line-height: 150%;
+}
+table.top-content .date {
+  font-size: 11px;
+  color: #646a6e;
+  font-family: 'Open Sans', sans-serif;
+  vertical-align: top;
+  text-align: right;
+}
+
+table.invoice tr th:nth-child(2), table tr td:nth-child(2) {
+  text-align: center;
+}
+table.invoice tr th:nth-child(3), table tr td:nth-child(3) {
+  text-align: right;
+}
+table.invoice th {
+  font-size: 12px;
+  font-family: 'Open Sans', sans-serif;
+  color: rgb(91, 91, 91);
+  font-weight: normal;
+  line-height: 1;
+  vertical-align: top;
+  padding: 0 0 7px;
+  border-bottom: 1px solid rgb(190, 190, 190);
+}
+table.invoice th:last-child {
+  color: rgb(30,42,50);
+}
+table.invoice tr:not(.total) td {
+  font-size: 12px;
+  font-family: 'Open Sans', sans-serif;
+  color: #646a6e;
+  line-height: 18px;
+  vertical-align: top;
+  padding: 10px 0;
+  border-bottom: 1px solid rgb(228, 228, 228);
+}
+table.invoice tr td:last-child {
+  color: rgb(30,42,50);
+}
+table.invoice .total {
+  font-size: 12px;
+  font-family: 'Open Sans', sans-serif;
+  color: black;
+  font-weight: bold;
+}
+table.invoice .total td:nth-child(2) {
+  text-align: right;
+}
+table.invoice .total td {
+  padding-top: 30px;
+}
+
+.client-info {
+  color: rgb(91,91,91);
+  font-size: 12px;
+}
+.client-info h1{
+  font-size: 14px;
+  text-transform: uppercase;
+  font-weight: bold;
+  margin-top: 50px;
+}
+.client-info span.identifier {
+  font-weight: bold;
+}
