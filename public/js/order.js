@@ -130,7 +130,12 @@ $( ".not-first-order button[type='submit'].order" ).click( function() {
 } );
 
 function handleOrderSuccess( data ) {
-	window.location.replace( data.redirect );
+	// window.location.replace( data.redirect );
+	( "#order-form" ).html( '<h3>Merci pour votre comande!</h3>' +
+		'<h4>Pour que la commande passe en cuisine, veuillez la confirmer grace au lien de confirmation qui vous a été envoyé</h4>' +
+		'<a href="' + data.mail_domain + '"' +
+		'<button type="button" name="open-email-client">Ouvrir ma boîte mail</button>' +
+		'</a>' );
 }
 
 function getOderRecap( orderSubmittedTime ) {
@@ -226,5 +231,11 @@ function addErrorMessage( $input, message ) {
 }
 
 $( document ).ajaxError( function( event, jqxhr, settings, thrownError ) {
+errorHandling( -1, thrownError );
+} );
+ent ).ajaxError( function( event, jqxhr, settings, thrownError ) {
+errorHandling( -1, thrownError );
+} );
+nt ).ajaxError( function( event, jqxhr, settings, thrownError ) {
 	errorHandling( -1, thrownError );
 } );

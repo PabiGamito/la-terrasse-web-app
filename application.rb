@@ -64,6 +64,27 @@ helpers do
     order.update(user_id: new_order_holder.id)
   end
 
+  def stack_orders(orders)
+    # sort orders by product_id
+    orders.sort! { |a,b| a.name.downcase <=> b.name.downcase }
+    stacked_orders = []
+    index = 0
+    amount = 0
+    orders.each do |order|
+      index += 1
+      amount += 1
+      # orders[index] = next order | index = orders.length = last in list
+      if order != orders[index] || index = orders.length
+        dup_order = order.dup
+        dup_order.class.module_eval { attr_accessor :amount}
+        dup_order.amount = amount
+        stacked_orders << dup_order
+        amount = 0
+      end
+    end
+    return stacked_orders # Array with orders objects with added amount attribute
+  end
+
   def send_confirmation_email(user, confirmation_link, account_modification_link, orders)
     @user = user
     @confirmation_link = confirmation_link
@@ -115,7 +136,9 @@ post "/update-cart" do
 
   if action == "add" && amount != 0
     if Order.count(user_id: user.id, product_id: product_id, submitted: false) == 0
-      Order.create(user_id: user.id, product_id: product_id, amount: amount, combined_order_id: combined_order.id)
+      amount.times do
+        Order.create(user_id: user.id, product_id: product_id, combined_order_id: combined_order.id)
+      end
     else
       action = "update"
     end
@@ -125,11 +148,14 @@ post "/update-cart" do
   end
 
   if action == "update" && amount != 0
-    order = Order.first(user_id: user.id, product_id: product_id, submitted: false)
-    order.update(amount: amount)
+    orders = Order.all(user_id: user.id, product_id: product_id, submitted: false)
+    (amount - order.length).times do
+      Order.create(user_id: user.id, product_id: product_id, combined_order_id: combined_order.id)
+    end
   end
 
   @orders = Order.all(user_id: user.id, submitted: false)
+  @stacked_orders = stack_orders(@orders)
   erb :cart, :layout => false
 
 end
@@ -294,8 +320,13 @@ post "/order" do # params: first_order, email, name, phone
   end
   combined_order.update(submitted: true, submitted_at: time, pickup_time: pickup_time)
 
-  # invoice_link = "#{request.host}:#{request.port}/invoice?email=#{user.email}&ts=#{time.to_i}&hash=#{hash}"
-  return {success: true, redirect: "#{http}://#{request.host}:#{request.port}/invoice?email=#{user.email}&ts=#{time.to_i}&hash=#{hash}"}.to_json
+  mail_domain = user.email.match(/\@(.*)(?=\.)/)[1] # me@gmail.com => gmail
+  if mail_domain == "gmail"
+    mail_client_link = "https://www.gmail.com"
+  else
+    mail_client_link = "mail_to:"
+  end
+  return {success: true, mail_domain: mail_client_link}.to_json
 end
 
 # CHECKOUT
@@ -315,11 +346,6 @@ end
 # GET ORDER INVOICE
 get "/invoice" do
   email = params[:email]
-  mail_domain = email.match(/\@(.*)(?=\.)/)[1] # me@gmail.com => gmail
-  # TODO: add other mail clients
-  if mail_domain == "gmail"
-    @mail_client_link = "https://www.gmail.com"
-  end
   user = User.first(email: email)
   if user_hash(user) == params[:hash]
     submitted_time = Time.at(params[:ts].to_i)
@@ -342,6 +368,9 @@ get "/email-confirmation" do
   if hash == user_hash(user) && submitted_time + 60*60*24 > Time.now
     @success = true
     combined_order = CombinedOrder.first(user_id: user.id, submitted: true, submitted_at: submitted_time, confirmed: false)
+    if !combined_order
+      redirect "/invoice?email=#{params[:email]}&ts=#{params[:ts].to_i}&hash=#{params[:hash]}"
+    end
     @orders = Order.all(combined_order_id: combined_order.id)
     if @orders.length == 0
       @error = "Order has probably aleardy been confirmed"
@@ -355,7 +384,7 @@ get "/email-confirmation" do
     @success = false
   end
 
-  erb :order_confirmed
+  redirect "/invoice?email=#{params[:email]}&ts=#{params[:ts].to_i}&hash=#{params[:hash]}"
 end
 
 

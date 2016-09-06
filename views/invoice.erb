@@ -12,11 +12,6 @@
           Merci d'avoir commandé chez nous. Merci pour votre commande.
         <% else %>
           Merci pour votre commande. <b>Veuillez la confirmer depuis votre email.</b>
-          <% if @mail_client_link != nil %>
-            <a href="<%= @mail_client_link %>">
-              <button type="button" name="open-email-client">Ouvrir ma boîte mail</button>
-            </a>
-          <% end %>
         <% end %>
       </td>
       <td class="date">
