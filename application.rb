@@ -428,8 +428,8 @@ get "/orders" do
   if admin_logged_in?
     # Check if combined order is complete by iterating through all orders in combined_order
     CombinedOrder.all(confirmed: true, completed: false, :order => [ :confirmed_at ]).each do |combined_order|
+      completed = true
       Order.all(combined_order_id: combined_order.id).each do |order|
-        completed = true
         if !order.done
           completed = false
           break
@@ -450,26 +450,30 @@ end
 
 # MARK ORDER AS COMPLETE
 post "/order-completed" do # params: order_id
-  if Admin.get(session[:admin_id]) != nil
-    Order.get( params[:order_id].to_i ).update(completed: true, completed_at: Time.now)
+  if admin_logged_in?
+    Order.get( params[:order_id].to_i ).update(done: true)
   else
     redirect '/admin'
   end
-  @uncompleted_orders = Order.all(confirmed: true, completed: false, :order => [ :confirmed_at ])
-  @completed_orders = Order.all(completed: true, :order => [ :completed_at ], :limit => 10)
+
+  @todo_orders = CombinedOrder.all(confirmed: true, completed: false, :order => [ :confirmed_at ])
+  @ready_orders = CombinedOrder.all(completed: true, delivered: false, :order => [ :completed_at ])
+  @delivered_orders = CombinedOrder.all(delivered: true, :order => [ :delivered_at ], :limit => 10)
 
   erb :admin_show_orders, :layout => false
 end
 
 # MARK COMPLETE ORDER AS NOT COMPLETE
 post "/order-uncompleted" do # params: order_id
-  if Admin.get(session[:admin_id]) != nil
+  if admin_logged_in?
     Order.get( params[:order_id].to_i ).update(completed: false)
   else
     redirect '/admin'
   end
-  @uncompleted_orders = Order.all(confirmed: true, completed: false, :order => [ :confirmed_at ])
-  @completed_orders = Order.all(completed: true, :order => [ :completed_at ], :limit => 10)
+
+  @todo_orders = CombinedOrder.all(confirmed: true, completed: false, :order => [ :confirmed_at ])
+  @ready_orders = CombinedOrder.all(completed: true, delivered: false, :order => [ :completed_at ])
+  @delivered_orders = CombinedOrder.all(delivered: true, :order => [ :delivered_at ], :limit => 10)
 
   erb :admin_show_orders, :layout => false
 end

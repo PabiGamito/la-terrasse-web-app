@@ -1,10 +1,4 @@
 <link rel="stylesheet" href="/css/font-awesome.min.css" media="screen" title="no title">
-<style media="screen">
-  table tr th, table tr td {
-    text-align: right;
-    vertical-align: middle;
-  }
-</style>
 
 <%
 def timeAgo(time)
@@ -26,6 +20,29 @@ def timeAgo(time)
 end
 %>
 
+<style media="screen">
+  table tr th, table tr td {
+    text-align: right;
+    vertical-align: middle;
+  }
+  #todo, #ready, #delivered {
+    width: 100vw;
+  }
+  .combined-order {
+  }
+  .combined-order .header {
+    height: 60px;
+    border: 1px solid black;
+    /*margin: 20px;*/
+    padding: 20px;
+  }
+  .done-check {
+    display: inline-block;
+    position: relative;
+  }
+
+</style>
+
 <datalist id="ready-times">
   <!-- inserted by js -->
 </datalist>
@@ -33,16 +50,32 @@ end
 <section id="todo">
   <% if @todo_orders.length != 0 %>
     <% @todo_orders.each do |combined_order| %>
-      <div class="combined_order">
+      <div class="combined-order">
         <% orders = Order.all(combined_order_id: combined_order.id) %>
+        <div class="header">
+          #<%=combined_order.id%> <%= combined_order.confirmed_at %>
+          <% if combined_order.completed %>
+            <div class="done-check">
+              <i class="fa fa-check-circle fa-3x" aria-hidden="true"></i>
+            </div>
+          <% else %>
+            <div class="done-check">
+              <i class="fa fa-check-circle-o fa-3x completed" aria-hidden="true"></i>
+            </div>
+          <% end %>
+        </div>
         <ul class="ordered_items">
         <% orders.each do |order| %>
           <li>
-            <% Product.get(order.product_id).name.capitalize %>
+            <%= Product.get(order.product_id).name.capitalize %>
             <% if order.done %>
-              <i class="fa fa-check-circle-o" aria-hidden="true"></i>
+              <div class="done-check uncompleted" order-id="<%= order.id %>">
+                <i class="fa fa-check-circle fa-2x" aria-hidden="true"></i>
+              </div>
             <% else %>
-              <i class="fa fa-check-circle" aria-hidden="true"></i>
+              <div class="done-check completed" order-id="<%= order.id %>">
+                <i class="fa fa-check-circle-o fa-2x " aria-hidden="true"></i>
+              </div>
             <% end %>
           </li>
         <% end %>
