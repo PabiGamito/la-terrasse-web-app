@@ -31,22 +31,26 @@ end
 </datalist>
 
 <section id="todo">
-  <% @todo_orders.each do |combined_order| %>
-    <div class="combined_order">
-      <% orders = Order.all(combined_order_id: combined_order.id) %>
-      <ul class="ordered_items">
-      <% orders.each do |order| %>
-        <li>
-          <% Product.get(order.product_id).name.capitalize %>
-          <% if order.done %>
-            <i class="fa fa-check-circle-o" aria-hidden="true"></i>
-          <% else %>
-            <i class="fa fa-check-circle" aria-hidden="true"></i>
-          <% end %>
-        </li>
-      <% end %>
-      </ul>
-    </div>
+  <% if @todo_orders.length != 0 %>
+    <% @todo_orders.each do |combined_order| %>
+      <div class="combined_order">
+        <% orders = Order.all(combined_order_id: combined_order.id) %>
+        <ul class="ordered_items">
+        <% orders.each do |order| %>
+          <li>
+            <% Product.get(order.product_id).name.capitalize %>
+            <% if order.done %>
+              <i class="fa fa-check-circle-o" aria-hidden="true"></i>
+            <% else %>
+              <i class="fa fa-check-circle" aria-hidden="true"></i>
+            <% end %>
+          </li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+  <% else %>
+    <h3 style="text-align: center;">Il n'y a pas de commandes à preparer</h3>
   <% end %>
 </section>
 

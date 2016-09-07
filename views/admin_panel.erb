@@ -104,7 +104,6 @@ section {
       $("nav li a[href="+window.location.hash+"]").addClass("active");
     }
   }
-  showHideSections();
 
   $(window).bind('hashchange', function() {
     showHideSections();
@@ -122,6 +121,7 @@ section {
   $.get("/orders", function(data) {
       // On answer
       $(".show-orders").html(data);
+      showHideSections();
     }
   );
 
@@ -130,6 +130,7 @@ setInterval(function(){
   $.get("/orders", function(data) {
       // On answer
       $(".show-orders").html(data);
+      showHideSections();
     }
   );
 }, 1000*30);

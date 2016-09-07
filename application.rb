@@ -96,7 +96,7 @@ helpers do
     @user = user
     @confirmation_link = confirmation_link
     @account_modification_link = account_modification_link
-    @orders = orders
+    @orders = stack_orders(orders)
     Pony.mail(
       :to => user.email,
       :subject => 'Confirmer la Commande',
@@ -118,7 +118,6 @@ end
 
 # ROOT/HOME/INDEX PAGE
 get "/" do
-  pry
 
   @title = "La Terrasse de Saint Germain au mont d'Or : Restaurant Brasserie Pizzeria"
   @description = "Jean-Marc vous accueille dans son restaurant à deux pas de Lyon en mode Terrasse, Brasserie ou Pizzeria. Pizzas à emporter à Saint Germain au Mont d'Or"
