@@ -231,11 +231,5 @@ function addErrorMessage( $input, message ) {
 }
 
 $( document ).ajaxError( function( event, jqxhr, settings, thrownError ) {
-errorHandling( -1, thrownError );
-} );
-ent ).ajaxError( function( event, jqxhr, settings, thrownError ) {
-errorHandling( -1, thrownError );
-} );
-nt ).ajaxError( function( event, jqxhr, settings, thrownError ) {
 	errorHandling( -1, thrownError );
 } );

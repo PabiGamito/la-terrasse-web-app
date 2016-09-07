@@ -50,6 +50,4 @@ configure do
   # Setup stripe payment system
   Stripe.api_key = "sk_test_b9jKn5v06yPFPuAN8LmyKmfT"
 
-  pry
-
 end
