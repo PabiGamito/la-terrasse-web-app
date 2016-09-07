@@ -3,7 +3,7 @@
 <%
   if Order.count(user_id: @user.id, product_id: @product.id, submitted: false) > 0
     in_cart = true
-    order = Order.first(user_id: @user.id, product_id: @product.id)
+    order = stack_orders( Order.all(user_id: @user.id, product_id: @product.id) )[0]
     amount = order.amount
     price = @product.price*amount
   else

@@ -66,7 +66,7 @@ helpers do
 
   def stack_orders(orders)
     # sort orders by product_id
-    orders.sort! { |a,b| a.name.downcase <=> b.name.downcase }
+    orders.sort! { |a,b| a.product_id.to_i <=> b.product_id.to_i }
     stacked_orders = []
     index = 0
     amount = 0
@@ -74,12 +74,19 @@ helpers do
       index += 1
       amount += 1
       # orders[index] = next order | index = orders.length = last in list
-      if order != orders[index] || index = orders.length
+      if index < orders.length
+        if order.product_id != orders[index].product_id
+          dup_order = order.dup
+          dup_order.class.module_eval { attr_accessor :amount}
+          dup_order.amount = amount
+          stacked_orders << dup_order
+          amount = 0
+        end
+      elsif index = orders.length
         dup_order = order.dup
         dup_order.class.module_eval { attr_accessor :amount}
         dup_order.amount = amount
         stacked_orders << dup_order
-        amount = 0
       end
     end
     return stacked_orders # Array with orders objects with added amount attribute
@@ -100,7 +107,7 @@ helpers do
   end
 
   def send_order_recap(user, combined_order_id)
-    @orders = Order.all(combined_order_id: combined_order_id)
+    @orders = stack_orders( Order.all(combined_order_id: combined_order_id) )
   end
 
   def admin_logged_in?
@@ -111,12 +118,14 @@ end
 
 # ROOT/HOME/INDEX PAGE
 get "/" do
+  pry
+
   @title = "La Terrasse de Saint Germain au mont d'Or : Restaurant Brasserie Pizzeria"
   @description = "Jean-Marc vous accueille dans son restaurant à deux pas de Lyon en mode Terrasse, Brasserie ou Pizzeria. Pizzas à emporter à Saint Germain au Mont d'Or"
 
   @products = Product.all
   @user = get_user
-  @orders = Order.all(user_id: @user.id, submitted: false)
+  @orders = stack_orders( Order.all(user_id: @user.id, submitted: false) )
 
   erb :root
 end
@@ -143,19 +152,26 @@ post "/update-cart" do
       action = "update"
     end
   elsif action == "remove"
-    order = Order.all(user_id: user.id, product_id: product_id, submitted: false)
-    order.destroy
+    orders = Order.all(user_id: user.id, product_id: product_id, submitted: false)
+    orders.destroy
   end
 
   if action == "update" && amount != 0
     orders = Order.all(user_id: user.id, product_id: product_id, submitted: false)
-    (amount - order.length).times do
-      Order.create(user_id: user.id, product_id: product_id, combined_order_id: combined_order.id)
+    if amount > orders.length
+      (amount - orders.length).times do
+        Order.create(user_id: user.id, product_id: product_id, combined_order_id: combined_order.id)
+      end
+    elsif amount < orders.length
+      i = 0
+      (orders.length - amount).times do
+        orders[i].destroy
+        i += 1
+      end
     end
   end
 
-  @orders = Order.all(user_id: user.id, submitted: false)
-  @stacked_orders = stack_orders(@orders)
+  @orders = stack_orders( Order.all(user_id: user.id, submitted: false) )
   erb :cart, :layout => false
 
 end
@@ -179,7 +195,7 @@ end
 # LOAD PAGE TO SUBMIT ORDER
 get "/order" do
   @user = get_user
-  @orders = Order.all(user_id: @user.id, submitted: false)
+  @orders = stack_orders( Order.all(user_id: @user.id, submitted: false) )
   erb :order, :layout => false
 end
 
@@ -350,7 +366,7 @@ get "/invoice" do
   if user_hash(user) == params[:hash]
     submitted_time = Time.at(params[:ts].to_i)
     @combined_order = CombinedOrder.first(user_id: user.id, submitted_at: submitted_time)
-    @orders = Order.all(combined_order_id: @combined_order.id)
+    @orders = stack_orders( Order.all(combined_order_id: @combined_order.id) )
     if @orders.length > 0
       return erb :invoice, :layout => false
     end
@@ -371,7 +387,7 @@ get "/email-confirmation" do
     if !combined_order
       redirect "/invoice?email=#{params[:email]}&ts=#{params[:ts].to_i}&hash=#{params[:hash]}"
     end
-    @orders = Order.all(combined_order_id: combined_order.id)
+    @orders = stack_orders( Order.all(combined_order_id: combined_order.id) )
     if @orders.length == 0
       @error = "Order has probably aleardy been confirmed"
       @success = false
