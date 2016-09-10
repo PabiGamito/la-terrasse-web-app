@@ -26,7 +26,8 @@ if ( hour < 17 || ( hour == 18 && minutes < 30 ) ) {
 	hour = 18;
 	minutes = 30;
 }
-$( "input.pickup-time" ).attr( "placeholder", hour + ":" + minutes );
+displayMinute = ( "0" + minutes ).slice( -2 );
+$( "input.pickup-time" ).attr( "placeholder", hour + ":" + displayMinute );
 var options = "";
 while ( hour < 22 ) {
 	if ( hour < 21 || ( hour == 21 && minutes < 30 ) ) {

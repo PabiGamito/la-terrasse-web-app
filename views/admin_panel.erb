@@ -70,26 +70,25 @@ section {
   });
 
   $("body").on("click", ".completed", function(){
-    $.post(
+    $.get(
       "/order-completed",{
   			order_id: $(this).attr("order-id")
   		},
       function(data) {
         // On answer
-        console.log(data);
-        $(".show-orders").html(data);
+        updateOrders();
       }
     );
   });
 
   $("body").on("click", ".uncompleted", function(){
-    $.post(
+    $.get(
       "/order-uncompleted",{
   			order_id: $(this).attr("order-id")
   		},
       function(data) {
         // On answer
-        $(".show-orders").html(data);
+        updateOrders();
       }
     );
   });
@@ -119,21 +118,20 @@ section {
     }
   });
 
-  $.get("/orders", function(data) {
-      // On answer
-      $(".show-orders").html(data);
-      showHideSections();
-    }
-  );
+  function updateOrders() {
+    $.get("/orders", function(data) {
+        // On answer
+        $(".show-orders").html(data);
+        showHideSections();
+      }
+    );
+  }
+
+  updateOrders();
 
 // Auto update orders
 setInterval(function(){
-  $.get("/orders", function(data) {
-      // On answer
-      $(".show-orders").html(data);
-      showHideSections();
-    }
-  );
+  updateOrders();
 }, 1000*30);
 
 </script>

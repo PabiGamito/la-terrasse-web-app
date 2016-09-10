@@ -436,12 +436,27 @@ get "/orders" do
         end
       end
       if completed
-        combined_order.update(completed: true)
+        combined_order.update(completed: true, completed_at: Time.now)
       end
     end
+
+    CombinedOrder.all(completed: true, delivered: false).each do |combined_order|
+      all_done = true
+      Order.all(combined_order_id: combined_order.id).each do |order|
+        if !order.done
+          all_done = false
+          break
+        end
+      end
+      if !all_done
+        combined_order.update(completed: false)
+      end
+    end
+    
     @todo_orders = CombinedOrder.all(confirmed: true, completed: false, :order => [ :confirmed_at ])
     @ready_orders = CombinedOrder.all(completed: true, delivered: false, :order => [ :completed_at ])
     @delivered_orders = CombinedOrder.all(delivered: true, :order => [ :delivered_at ], :limit => 10)
+
     erb :admin_show_orders, :layout => false
   else
     redirect '/admin'
@@ -449,37 +464,27 @@ get "/orders" do
 end
 
 # MARK ORDER AS COMPLETE
-post "/order-completed" do # params: order_id
+get "/order-completed" do # params: order_id
   if admin_logged_in?
     Order.get( params[:order_id].to_i ).update(done: true)
+    return "success".to_json
   else
     redirect '/admin'
   end
-
-  @todo_orders = CombinedOrder.all(confirmed: true, completed: false, :order => [ :confirmed_at ])
-  @ready_orders = CombinedOrder.all(completed: true, delivered: false, :order => [ :completed_at ])
-  @delivered_orders = CombinedOrder.all(delivered: true, :order => [ :delivered_at ], :limit => 10)
-
-  erb :admin_show_orders, :layout => false
 end
 
 # MARK COMPLETE ORDER AS NOT COMPLETE
-post "/order-uncompleted" do # params: order_id
+get "/order-uncompleted" do # params: order_id
   if admin_logged_in?
-    Order.get( params[:order_id].to_i ).update(completed: false)
+    Order.get( params[:order_id].to_i ).update(done: false)
+    return "success".to_json
   else
     redirect '/admin'
   end
-
-  @todo_orders = CombinedOrder.all(confirmed: true, completed: false, :order => [ :confirmed_at ])
-  @ready_orders = CombinedOrder.all(completed: true, delivered: false, :order => [ :completed_at ])
-  @delivered_orders = CombinedOrder.all(delivered: true, :order => [ :delivered_at ], :limit => 10)
-
-  erb :admin_show_orders, :layout => false
 end
 
 post "/order-ready-time" do
-  if Admin.get(session[:admin_id]) != nil
+  if admin_logged_in? # FIXME: AJAX post request cannot get session to know if logged in
     if params[:ready_time].match(/\d\d:\d\d/) != nil
       order = Order.get(params[:order_id].to_i)
       ready_time = " #{params[:ready_time]}:00 "

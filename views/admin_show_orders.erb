@@ -54,15 +54,6 @@ end
         <% orders = Order.all(combined_order_id: combined_order.id) %>
         <div class="header">
           #<%=combined_order.id%> <%= combined_order.confirmed_at %>
-          <% if combined_order.completed %>
-            <div class="done-check">
-              <i class="fa fa-check-circle fa-3x" aria-hidden="true"></i>
-            </div>
-          <% else %>
-            <div class="done-check">
-              <i class="fa fa-check-circle-o fa-3x completed" aria-hidden="true"></i>
-            </div>
-          <% end %>
         </div>
         <ul class="ordered_items">
         <% orders.each do |order| %>
@@ -88,82 +79,109 @@ end
 </section>
 
 <section id="ready">
-
+  <% if @ready_orders.length != 0 %>
+    <% @ready_orders.each do |combined_order| %>
+      <div class="combined-order">
+        <% orders = Order.all(combined_order_id: combined_order.id) %>
+        <div class="header">
+          #<%=combined_order.id%> <%= combined_order.confirmed_at %>
+        </div>
+        <ul class="ordered_items">
+        <% orders.each do |order| %>
+          <li>
+            <%= Product.get(order.product_id).name.capitalize %>
+            <% if order.done %>
+              <div class="done-check uncompleted" order-id="<%= order.id %>">
+                <i class="fa fa-check-circle fa-2x" aria-hidden="true"></i>
+              </div>
+            <% else %>
+              <div class="done-check completed" order-id="<%= order.id %>">
+                <i class="fa fa-check-circle-o fa-2x " aria-hidden="true"></i>
+              </div>
+            <% end %>
+          </li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+  <% else %>
+    <h3 style="text-align: center;">Il n'y a pas de commandes à preparer</h3>
+  <% end %>
 </section>
 
 <section id="delivered">
 
 </section>
 
-<script src="/js/jquery.formatter.min.js"></script>
+<!-- <script src="/js/jquery.formatter.min.js"></script>
 <script src="/js/moment.min.js"></script>
-<script src="/js/moment-timezone-with-data.min.js"></script>
+<script src="/js/moment-timezone-with-data.min.js"></script> -->
 
 <script type="text/javascript">
-$(document).on("keyup", "input", function (e) {
-  var oderID = $(this).attr("order-id");
-  var readyTime = $(this).val();
-  $.post("/order-ready-time",{
-      order_id: oderID,
-      ready_time: readyTime
-    }, function(data){
-
-    }
-  );
-});
-
-$( '.ready-time' ).formatter( {
-	'pattern': '{{99}}:{{99}}'
-		// 'persistent': true
-} );
-
-// Setup time select
-function updateDataList() {
-  var t = moment.tz( "Europe/Paris" );
-  var hour = parseInt( t.format( "HH" ) );
-  var minutes = parseInt( t.format( "mm" ) );
-
-  $( "input.pickup-time" ).attr( "placeholder", hour + ":" + minutes );
-  var options = "";
-  var inMinutes;
-  var displayMinute;
-
-  function pushExtraMinutesToHours() {
-    if (minutes >= 60) {
-      hour += 1;
-      minutes -= 60;
-    }
-  }
-
-  for (var i = 0; i < 3; i++) {
-    minutes += 1;
-    pushExtraMinutesToHours();
-    inMinutes = (hour*60 + minutes) - (parseInt( t.format( "HH" ) ) * 60 + parseInt( t.format( "mm" ) ));
-    displayMinute = ( "0" + minutes ).slice( -2 );
-    options += "<option value=" + hour + ":" + displayMinute + "> Dans "+inMinutes+" minutes </option>";
-  }
-
-  minutes += 2;
-  pushExtraMinutesToHours();
-  inMinutes = (hour*60 + minutes) - (parseInt( t.format( "HH" ) ) * 60 + parseInt( t.format( "mm" ) ));
-  displayMinute = ( "0" + minutes ).slice( -2 );
-  options += "<option value=" + hour + ":" + displayMinute + "> Dans "+inMinutes+" minutes </option>";
-
-  for (var i = 0; i < 11; i++) {
-    minutes += 5;
-    pushExtraMinutesToHours();
-    inMinutes = (hour*60 + minutes) - (parseInt( t.format( "HH" ) ) * 60 + parseInt( t.format( "mm" ) ));
-    displayMinute = ( "0" + minutes ).slice( -2 );
-    options += "<option value=" + hour + ":" + displayMinute + "> Dans "+inMinutes+" minutes </option>";
-  }
-
-  $( "datalist#ready-times" ).html( options );
-}
-
-updateDataList();
-
-setInterval(function(){
-  updateDataList();
-}, 5000); // run every 5 seconds
+// $(document).on("keyup", "input", function (e) {
+//   var oderID = $(this).attr("order-id");
+//   var readyTime = $(this).val();
+//   $.post("/order-ready-time",{
+//       order_id: oderID,
+//       ready_time: readyTime
+//     }, function(data){
+//
+//     }
+//   );
+// });
+//
+// $( '.ready-time' ).formatter( {
+// 	'pattern': '{{99}}:{{99}}'
+// 		// 'persistent': true
+// } );
+//
+// // Setup time select
+// function updateDataList() {
+//   var t = moment.tz( "Europe/Paris" );
+//   var hour = parseInt( t.format( "HH" ) );
+//   var minutes = parseInt( t.format( "mm" ) );
+//
+//   $( "input.pickup-time" ).attr( "placeholder", hour + ":" + minutes );
+//   var options = "";
+//   var inMinutes;
+//   var displayMinute;
+//
+//   function pushExtraMinutesToHours() {
+//     if (minutes >= 60) {
+//       hour += 1;
+//       minutes -= 60;
+//     }
+//   }
+//
+//   for (var i = 0; i < 3; i++) {
+//     minutes += 1;
+//     pushExtraMinutesToHours();
+//     inMinutes = (hour*60 + minutes) - (parseInt( t.format( "HH" ) ) * 60 + parseInt( t.format( "mm" ) ));
+//     displayMinute = ( "0" + minutes ).slice( -2 );
+//     options += "<option value=" + hour + ":" + displayMinute + "> Dans "+inMinutes+" minutes </option>";
+//   }
+//
+//   minutes += 2;
+//   pushExtraMinutesToHours();
+//   inMinutes = (hour*60 + minutes) - (parseInt( t.format( "HH" ) ) * 60 + parseInt( t.format( "mm" ) ));
+//   displayMinute = ( "0" + minutes ).slice( -2 );
+//   options += "<option value=" + hour + ":" + displayMinute + "> Dans "+inMinutes+" minutes </option>";
+//
+//   for (var i = 0; i < 11; i++) {
+//     minutes += 5;
+//     pushExtraMinutesToHours();
+//     inMinutes = (hour*60 + minutes) - (parseInt( t.format( "HH" ) ) * 60 + parseInt( t.format( "mm" ) ));
+//     displayMinute = ( "0" + minutes ).slice( -2 );
+//     options += "<option value=" + hour + ":" + displayMinute + "> Dans "+inMinutes+" minutes </option>";
+//   }
+//
+//   $( "datalist#ready-times" ).html( options );
+// }
+//
+// updateDataList();
+//
+// setInterval(function(){
+//   updateDataList();
+// }, 5000); // run every 5 seconds
 
 </script>
