@@ -3,6 +3,9 @@
 <script src="/js/jquery.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 <style media="screen">
+body {
+  background: rgb(242, 238, 227);
+}
 nav {
   width: 100%;
   background-color: rgb(102, 88, 79);
@@ -85,6 +88,31 @@ section {
     $.get(
       "/order-uncompleted",{
   			order_id: $(this).attr("order-id")
+  		},
+      function(data) {
+        // On answer
+        updateOrders();
+      }
+    );
+  });
+
+  $("body").on("click", ".delivered", function(){
+    alert("clicked");
+    $.get(
+      "/delivered",{
+  			combined_order_id: $(this).attr("combined-order-id")
+  		},
+      function(data) {
+        // On answer
+        updateOrders();
+      }
+    );
+  });
+
+  $("body").on("click", ".undelivered", function(){
+    $.get(
+      "/undelivered",{
+  			combined_order_id: $(this).attr("combined-order-id")
   		},
       function(data) {
         // On answer

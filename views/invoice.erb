@@ -13,6 +13,7 @@
         <% else %>
           Merci pour votre commande. <b>Veuillez la confirmer depuis votre email.</b>
         <% end %>
+        <br /> Votre commande sera prête vers <%= combined_order.pickup_time.strftime("%H:%M") %>
       </td>
       <td class="date">
         <%= @combined_order.submitted_at.to_time.strftime("%d/%m/%Y")%>

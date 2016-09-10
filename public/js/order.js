@@ -21,10 +21,10 @@ function roundUp5( x ) {
 }
 var t = moment.tz( "Europe/Paris" );
 var hour = parseInt( t.format( "HH" ) );
-var minutes = roundUp5( parseInt( t.format( "mm" ) ) );
-if ( hour < 17 || ( hour == 18 && minutes < 30 ) ) {
+var minutes = roundUp5( parseInt( t.format( "mm" ) + 15 ) );
+if ( hour < 17 || ( hour == 18 && minutes < 30 ) || ( hour > 21 && minutes > 30 ) ) {
 	hour = 18;
-	minutes = 30;
+	minutes = 30 + 15;
 }
 displayMinute = ( "0" + minutes ).slice( -2 );
 $( "input.pickup-time" ).attr( "placeholder", hour + ":" + displayMinute );

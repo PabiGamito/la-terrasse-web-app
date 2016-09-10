@@ -208,19 +208,31 @@ post "/order" do # params: first_order, email, name, phone
   pickup_time = Time.parse(pickup_time)
   first_order = to_boolean(params[:first_order])
 
-  if Time.now > pickup_time # if pickup time is in the past
-    pickup_time = Time.now
+  if Time.now <= pickup_time + 15*60 # if pickup time is in the past
+    pickup_time = Time.now + 15*60
+  end
+
+  open_time_range = Range.new(
+    Time.local(pickup_time.year, pickup_time.month, pickup_time.day, 18, 45),
+    Time.local(pickup_time.year, pickup_time.month, pickup_time.day, 21, 45)
+  )
+  unless open_time_range === pickup_time
+    if Time.now > Time.parse("21:30")
+      pickup_time = Time.parse("18:45") + 60*60*24
+    else
+      pickup_time = Time.parse("18:45")
+    end
   end
 
   # Check time is between order open times
   t = Time.now
   open_time_range = Range.new(
-    Time.local(t.year, t.month, t.day, 9, 30),
+    Time.local(t.year, t.month, t.day, 18, 30),
     Time.local(t.year, t.month, t.day, 21, 30)
   )
 
   unless open_time_range === t
-    error = "not open for orders"
+    error = "not open for orders" #TODO: Send warning message asking if user still wishes to order
     return {success: false, error: error, error_id: 1, first_order: first_order}.to_json
   end
 
@@ -391,7 +403,7 @@ get "/email-confirmation" do
       @error = "Order has probably aleardy been confirmed"
       @success = false
     else
-      combined_order.update(confirmed: true, confirmed_at: Time.now)
+      combined_order.update(confirmed: true, confirmed_at: Time.now, pickup_time: Time.now + 15*60)
       send_order_recap(user, @orders)
     end
   else
@@ -427,7 +439,7 @@ end
 get "/orders" do
   if admin_logged_in?
     # Check if combined order is complete by iterating through all orders in combined_order
-    CombinedOrder.all(confirmed: true, completed: false, :order => [ :confirmed_at ]).each do |combined_order|
+    CombinedOrder.all(confirmed: true, completed: false).each do |combined_order|
       completed = true
       Order.all(combined_order_id: combined_order.id).each do |order|
         if !order.done
@@ -452,9 +464,9 @@ get "/orders" do
         combined_order.update(completed: false)
       end
     end
-    
-    @todo_orders = CombinedOrder.all(confirmed: true, completed: false, :order => [ :confirmed_at ])
-    @ready_orders = CombinedOrder.all(completed: true, delivered: false, :order => [ :completed_at ])
+
+    @todo_orders = CombinedOrder.all(confirmed: true, completed: false, :order => [ :pickup_time ])
+    @ready_orders = CombinedOrder.all(completed: true, delivered: false, :order => [ :pickup_time ])
     @delivered_orders = CombinedOrder.all(delivered: true, :order => [ :delivered_at ], :limit => 10)
 
     erb :admin_show_orders, :layout => false
@@ -483,6 +495,7 @@ get "/order-uncompleted" do # params: order_id
   end
 end
 
+# UPDATE THE PICKUP TIME FOR AN ORDER
 post "/order-ready-time" do
   if admin_logged_in? # FIXME: AJAX post request cannot get session to know if logged in
     if params[:ready_time].match(/\d\d:\d\d/) != nil
@@ -498,27 +511,35 @@ post "/order-ready-time" do
 end
 
 # MARK ORDER AS PICKUPED/DEVILVERED & CHARGE USER
-post "/delivered" do
-  user = get_user
-  order = Order.get(params[:order_id].to_i)
-  price = 0
-
-  # Charge the Customer
-  begin
-    Stripe::Charge.create(
-      :amount => (params[:amount]*100).to_i, # in cents
-      :currency => "eur",
-      :customer => user.stripe_id,
-      # :description => "Example charge", #TODO: Add detailed description of charge
-      :metadata => object_to_hash(order)
-    )
-  rescue Stripe::CardError => e
-    # TODO: Error handling
-    # The card has been declined
-    return e
+get "/delivered" do
+  if admin_logged_in?
+    order = CombinedOrder.get(params[:combined_order_id].to_i)
+    order.update(delivered: true, delivered_at: Time.now)
+    return "success".to_json
   end
 
-  order.update(delivered: true, delivered_at: Time.now)
+  # Charge the Customer
+  # begin
+  #   Stripe::Charge.create(
+  #     :amount => (params[:amount]*100).to_i, # in cents
+  #     :currency => "eur",
+  #     :customer => user.stripe_id,
+  #     # :description => "Example charge", #TODO: Add detailed description of charge
+  #     :metadata => object_to_hash(order)
+  #   )
+  # rescue Stripe::CardError => e
+  #   # TODO: Error handling
+  #   # The card has been declined
+  #   return e
+  # end
+end
+
+get "/undelivered"
+  if admin_logged_in?
+    order = CombinedOrder.get(params[:combined_order_id].to_i)
+    order.update(delivered: false)
+    return "success".to_json
+  end
 end
 
 # SEARCH

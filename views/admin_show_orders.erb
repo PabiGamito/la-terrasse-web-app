@@ -27,15 +27,29 @@ end
   }
   #todo, #ready, #delivered {
     width: 100vw;
+    max-width: 360px;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
   }
   .combined-order {
+    margin-bottom: 10px;
   }
-  .combined-order .header {
-    height: 60px;
-    border: 1px solid black;
-    /*margin: 20px;*/
-    padding: 20px;
+  .combined-order .title {
+    font-weight: bold;
+    text-transform: uppercase;
   }
+  ul.ordered-items{
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    background: white;
+    padding: 10px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+  }
+
   .done-check {
     display: inline-block;
     position: relative;
@@ -51,23 +65,21 @@ end
   <% if @todo_orders.length != 0 %>
     <% @todo_orders.each do |combined_order| %>
       <div class="combined-order">
+        <span class="title">#<%=combined_order.id%> <%= combined_order.pickup_time.strftime("à livré à partir de %H:%M") %></span>
+        <ul class="ordered-items">
         <% orders = Order.all(combined_order_id: combined_order.id) %>
-        <div class="header">
-          #<%=combined_order.id%> <%= combined_order.confirmed_at %>
-        </div>
-        <ul class="ordered_items">
         <% orders.each do |order| %>
           <li>
-            <%= Product.get(order.product_id).name.capitalize %>
             <% if order.done %>
               <div class="done-check uncompleted" order-id="<%= order.id %>">
                 <i class="fa fa-check-circle fa-2x" aria-hidden="true"></i>
               </div>
             <% else %>
               <div class="done-check completed" order-id="<%= order.id %>">
-                <i class="fa fa-check-circle-o fa-2x " aria-hidden="true"></i>
+                <i class="fa fa-check-circle-o fa-2x" aria-hidden="true"></i>
               </div>
             <% end %>
+            <%= Product.get(order.product_id).name.capitalize %>
           </li>
         <% end %>
         </ul>
@@ -82,35 +94,58 @@ end
   <% if @ready_orders.length != 0 %>
     <% @ready_orders.each do |combined_order| %>
       <div class="combined-order">
-        <% orders = Order.all(combined_order_id: combined_order.id) %>
-        <div class="header">
-          #<%=combined_order.id%> <%= combined_order.confirmed_at %>
+        <span class="title">#<%=combined_order.id%> <%= combined_order.pickup_time.strftime("à livré à partir de %H:%M") %></span>
+        <div class="delivered" combined-order-id="<%= combined_order.id %>">
+          <span class="fa-stack fa-lg">
+            <i class="fa fa-circle-o fa-stack-2x"></i>
+            <i class="fa fa-truck fa-stack-1x" aria-hidden="true"></i>
+          </span>
         </div>
-        <ul class="ordered_items">
+        <ul class="ordered-items">
+        <% orders = Order.all(combined_order_id: combined_order.id) %>
         <% orders.each do |order| %>
           <li>
+            <div class="done-check uncompleted" order-id="<%= order.id %>">
+              <i class="fa fa-check-circle fa-2x fa-pull-right" aria-hidden="true"></i>
+            </div>
             <%= Product.get(order.product_id).name.capitalize %>
-            <% if order.done %>
-              <div class="done-check uncompleted" order-id="<%= order.id %>">
-                <i class="fa fa-check-circle fa-2x" aria-hidden="true"></i>
-              </div>
-            <% else %>
-              <div class="done-check completed" order-id="<%= order.id %>">
-                <i class="fa fa-check-circle-o fa-2x " aria-hidden="true"></i>
-              </div>
-            <% end %>
           </li>
         <% end %>
         </ul>
       </div>
     <% end %>
   <% else %>
-    <h3 style="text-align: center;">Il n'y a pas de commandes à preparer</h3>
+    <h3 style="text-align: center;">Il n'y a pas de commandes prêtes</h3>
   <% end %>
 </section>
 
 <section id="delivered">
-
+  <% @delivered_orders.each do |combined_order| %>
+    <div class="combined-order">
+      <span class="title">#<%=combined_order.id%> <%= combined_order.pickup_time.strftime("à livré à partir de %H:%M") %></span>
+      <div class="undelivered" combined-order-id="<%= combined_order.id %>">
+        <span class="fa-stack fa-lg">
+          <i class="fa fa-circle-o fa-stack-2x"></i>
+          <i class="fa fa-truck fa-stack-1x" aria-hidden="true"></i>
+        </span>
+        <!-- <span class="fa-stack fa-lg fa-pull-right">
+          <i class="fa fa-circle-o fa-stack-2x"></i>
+          <i class="fa fa-credit-card-alt fa-stack-1x" aria-hidden="true"></i>
+        </span> -->
+      </div>
+      <ul class="ordered-items">
+      <% orders = Order.all(combined_order_id: combined_order.id) %>
+      <% orders.each do |order| %>
+        <li>
+          <div class="done-check" order-id="<%= order.id %>">
+            <i class="fa fa-check-circle fa-2x fa-pull-right" aria-hidden="true"></i>
+          </div>
+          <%= Product.get(order.product_id).name.capitalize %>
+        </li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
 </section>
 
 <!-- <script src="/js/jquery.formatter.min.js"></script>
