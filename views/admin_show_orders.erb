@@ -94,7 +94,9 @@ end
   <% if @ready_orders.length != 0 %>
     <% @ready_orders.each do |combined_order| %>
       <div class="combined-order">
-        <span class="title">#<%=combined_order.id%> <%= combined_order.pickup_time.strftime("à livré à partir de %H:%M") %></span>
+        <% user = User.get(combined_order.user_id) %>
+        <span class="title">#<%=combined_order.id%> <%= combined_order.pickup_time.strftime("à livré à partir de %H:%M") %> <br>
+        <%= user.first_name.capitalize %> <%= user.last_name.capitalize %> - <%= user.phone %></span>
         <div class="delivered" combined-order-id="<%= combined_order.id %>">
           <span class="fa-stack fa-lg">
             <i class="fa fa-circle-o fa-stack-2x"></i>
@@ -122,11 +124,11 @@ end
 <section id="delivered">
   <% @delivered_orders.each do |combined_order| %>
     <div class="combined-order">
-      <span class="title">#<%=combined_order.id%> <%= combined_order.pickup_time.strftime("à livré à partir de %H:%M") %></span>
+      <span class="title">#<%=combined_order.id%> <%= combined_order.delivered_at.strftime("livré le %d/%m/%y à %H:%M") %></span>
       <div class="undelivered" combined-order-id="<%= combined_order.id %>">
         <span class="fa-stack fa-lg">
-          <i class="fa fa-circle-o fa-stack-2x"></i>
-          <i class="fa fa-truck fa-stack-1x" aria-hidden="true"></i>
+          <i class="fa fa-circle fa-stack-2x"></i>
+          <i class="fa fa-truck fa-stack-1x fa-inverse" aria-hidden="true"></i>
         </span>
         <!-- <span class="fa-stack fa-lg fa-pull-right">
           <i class="fa fa-circle-o fa-stack-2x"></i>
@@ -146,6 +148,10 @@ end
       </ul>
     </div>
   <% end %>
+</section>
+
+<section id="search">
+  <h3>Searching...</h3>
 </section>
 
 <!-- <script src="/js/jquery.formatter.min.js"></script>

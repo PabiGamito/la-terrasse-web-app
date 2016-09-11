@@ -33,7 +33,7 @@ nav li a {
 }
 
 /* Change the link color to #111 (black) on hover */
-nav li a:hover {
+nav li a:hover:not(.search) {
   border-bottom: 5px solid rgb(78, 54, 39);
   text-decoration: none;
   color: white;
@@ -43,7 +43,7 @@ nav li a:hover, nav li a:visited, nav li a:link, nav li a:active {
   color: white;
 }
 
-nav li a.active {
+nav li a.active:not(.search) {
   background-color: #111;
 }
 
@@ -55,7 +55,9 @@ section {
 <!-- TODO: Option to close orders for different reasons-->
 <nav>
   <ul class="container">
-    <li>Search</li>
+    <li style="padding: 18px;" class="search">
+      <i class="fa fa-search" aria-hidden="true"></i> <input type="text" name="search" value="" placeholder="Chercher" style="color: black;">
+    </li>
     <li><a class="active" href="#todo">Faire</a></li>
     <li><a href="#ready">Prêt</a></li>
     <li><a href="#delivered">Livré</a></li>
@@ -97,7 +99,6 @@ section {
   });
 
   $("body").on("click", ".delivered", function(){
-    alert("clicked");
     $.get(
       "/delivered",{
   			combined_order_id: $(this).attr("combined-order-id")
@@ -117,6 +118,18 @@ section {
       function(data) {
         // On answer
         updateOrders();
+      }
+    );
+  });
+
+  $(".search input").on("change", function(){
+    $.get(
+      "/search",{
+  			query: $(this).val()
+  		},
+      function(data) {
+        // On answer
+        console.log(data);
       }
     );
   });

@@ -534,7 +534,7 @@ get "/delivered" do
   # end
 end
 
-get "/undelivered"
+get "/undelivered" do
   if admin_logged_in?
     order = CombinedOrder.get(params[:combined_order_id].to_i)
     order.update(delivered: false)
@@ -543,7 +543,7 @@ get "/undelivered"
 end
 
 # SEARCH
-post "/search" do
+get "/search" do
   # Search an order by first and last name, phone number, email
   queries = params[:query].gsub(/\s+/m, ' ').strip.split(" ")
   data = {}
@@ -573,7 +573,14 @@ post "/search" do
       if data[user.id]
         data[user.id][:times] += 1
       else
-        data[user.id] = {user: user, times: 1}
+        data[user.id] = {user: {
+            id: user.id,
+            first_name: user.first_name,
+            last_name: user.last_name,
+            email: user.email,
+            phone: user.phone
+          },
+          times: 1}
       end
     end
 
