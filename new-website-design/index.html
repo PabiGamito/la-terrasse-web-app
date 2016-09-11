@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <!-- RS5.0 Main Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="revolution/css/settings.css">
+
+    <!-- RS5.0 Layers and Navigation Styles -->
+    <link rel="stylesheet" type="text/css" href="revolution/css/layers.css">
+    <link rel="stylesheet" type="text/css" href="revolution/css/navigation.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <!-- RS5.0 Core JS Files -->
+    <script type="text/javascript" src="revolution/js/jquery.themepunch.tools.min.js?rev=5.0"></script>
+    <script type="text/javascript" src="revolution/js/jquery.themepunch.revolution.min.js?rev=5.0"></script>
+    <script type="text/javascript" src="revolution/js/extensions/revolution.extension.slideanims.min.js"></script>
+    <script type="text/javascript" src="revolution/js/extensions/revolution.extension.layeranimation.min.js"></script>
+    <script type="text/javascript" src="revolution/js/extensions/revolution.extension.navigation.min.js"></script>
+
+    <link rel="stylesheet" href="css/main.css" media="screen" title="no title">
+  </head>
+  <body>
+    <!-- REVOLUTION SLIDER -->
+    <section>
+      <!-- START REVOLUTION SLIDER 5.0 -->
+      <div class="rev_slider_wrapper">
+       <div id="slider" class="rev_slider"  data-version="5.0">
+        <ul>
+         <li data-transition="fade">
+           <!-- MAIN IMAGE -->
+           <img src="img/slide1.jpg"  alt=""  width="1920" height="1280">
+           <!-- LAYER NR. 1 -->
+           <div class="tp-caption News-Title"
+              data-x="left" data-hoffset="80"
+              data-y="top" data-voffset="450"
+              data-whitespace="normal"
+              data-transform_idle="o:1;"
+              data-transform_in="o:0"
+              data-transform_out="o:0"
+              data-start="500">DISCOVER THE WILD</div>
+         </li>
+
+         <li data-transition="fade">
+           <!-- MAIN IMAGE -->
+           <img src="img/slide2.jpg"  alt=""  width="1920" height="1280">
+           <!-- LAYER NR. 1 -->
+           <div class="tp-caption News-Title"
+              data-x="left" data-hoffset="80"
+              data-y="top" data-voffset="450"
+              data-whitespace="normal"
+              data-transform_idle="o:1;"
+              data-transform_in="o:0"
+              data-transform_out="o:0"
+              data-start="500">DISCOVER THE WILD</div>
+         </li>
+        </ul>
+       </div><!-- END REVOLUTION SLIDER -->
+      </div><!-- END OF SLIDER WRAPPER -->
+    </section>
+
+    <!-- BOOK A TABLE BANNER -->
+    <section class="book-table">
+      <!-- Row just under slider -->
+      <!-- Name Email Date Time #People Book-Button -->
+    </section>
+
+    <!-- ABOUT THE RESTAURANT -->
+    <section id="about">
+
+    </section>
+
+    <!-- EVENTS -->
+    <section id="events">
+
+      <!-- BOOK A TABLE FOR THE NEXT EVENT -->
+      <div class="book-table">
+
+      </div>
+    </section>
+
+    <script>
+    jQuery(document).ready(function() {
+       jQuery("#slider").revolution({
+          sliderType:"standard",
+          sliderLayout:"auto",
+          delay:9000,
+          navigation: {
+              arrows:{enable:true}
+          },
+          gridwidth:1230,
+          gridheight:720
+        });
+    });
+    </script>
+
+  </body>
+</html>
