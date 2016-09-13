@@ -6,6 +6,7 @@
 	<title>New Website Template Test</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<link rel='stylesheet' href='css/reset.css' type='text/css' media='all' />
+	<link rel='stylesheet' href='css/navbar.css' type='text/css' media='all' />
 	<link rel='stylesheet' href='css/main.css' type='text/css' media='all' />
 
 	<!-- RS5.0 Layers and Navigation Styles -->
@@ -207,51 +208,37 @@
 	</section>
 	<section class="section fullwidth">
 		<div class="container">
-			<div class="row">
-				<div class="col-md-12 have-padding">
-					<div class="book-table-wrapper">
-						<div id="msg"></div>
-						<form class="book-form">
-							<input type="hidden" id="book_contact_nonce" name="book_contact_nonce" value="9736adcac1" />
-							<input type="hidden" name="_wp_http_referer" value="/" />
-							<input type="hidden" name="book-contact-form-value" value="1" id="" />
-							<div class="input-container">
-								<input type="text" name="book-name" id="book-name" placeholder="Nom">
-							</div>
-							<!-- /input-container -->
-							<div class="input-container">
-								<input type="email" name="book-email" id="book-email" placeholder="Email">
-							</div>
-							<!-- /input-container -->
-							<div class="input-container">
-								<input class="datepicker" name="book-date" type="text" id="book-date" placeholder="JJ/MM/AA">
-							</div>
-							<!-- /input-container -->
-							<div class="input-container">
-								<input type="text" name="book-time" id="book-time" placeholder="Heure">
-							</div>
-							<!-- /input-container -->
-							<div class="input-container">
-								<select class="custom-dropdown" name="book-size" id="book-size">
-									<option value="-1" selected>Nombre de Personnes</option>
-									<option value="1">1</option>
-									<option value="2">2</option>
-									<option value="3">3</option>
-									<option value="4">4</option>
-									<option value="5">5</option>
-									<option value="10">10</option>
-									<option value="15">15</option>
-								</select>
-							</div>
-							<!-- /input-container -->
-							<div class="input-container">
-								<button type="submit" id="book-submit" class="res-button"><span>Réserver</span>
-								</button>
-							</div>
-							<!-- /input-container -->
-						</form>
+			<div class="book-table-wrapper">
+				<form class="book-form">
+					<div class="book-form-input col-md-2">
+						<input type="text" name="book-name" id="book-name" placeholder="Nom">
 					</div>
-				</div>
+					<div class="book-form-input col-md-2">
+						<input type="email" name="book-email" id="book-email" placeholder="Email">
+					</div>
+					<div class="book-form-input col-md-2">
+						<input class="datepicker" name="book-date" type="text" id="book-date" placeholder="JJ/MM/AA">
+					</div>
+					<div class="book-form-input col-md-2">
+						<input type="text" name="book-time" id="book-time" placeholder="Heure">
+					</div>
+					<div class="book-form-input col-md-2">
+						<select class="custom-dropdown" name="book-size" id="book-size">
+							<option value="-1" selected>Nombre de Personnes</option>
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+							<option value="10">10</option>
+							<option value="15">15</option>
+						</select>
+					</div>
+					<div class="book-form-input col-md-2">
+						<button type="submit" id="book-submit" class="res-button"><span>Réserver</span>
+						</button>
+					</div>
+				</form>
 			</div>
 		</div>
 	</section>

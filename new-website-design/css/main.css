@@ -1,307 +1,45 @@
-/**********************************************************************************************
-:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-                                        4. MAIN NAV
-:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-***********************************************************************************************/
-.main-nav-container {
-  z-index: 100;
+.book-form {
+  font-family: "Roboto", sans-serif;
+  font-size: 14px;
 }
-.main-nav-container a{
-    color: #8a9eae;
+input {
+  outline: none;
+  display: block;
+  background: rgba(0, 0, 0, 0.1);
+  width: 100%;
+  border: 0;
+  border-radius: 4px;
+  box-sizing: border-box;
+  padding: 12px 20px;
+  color: rgba(0, 0, 0, 0.6);
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: 500;
+  line-height: inherit;
+  -webkit-transition: 0.3s ease;
+  transition: 0.3s ease;
 }
-.main-nav-container a:hover{
-    color: white;
+input:focus {
+  color: rgba(0, 0, 0, 0.8);
 }
-.main-nav-container .logo-container{
-    display: block;
-    width: 100%;
-    padding-bottom: 38px;
-    position: relative;
+button {
+  outline: none;
+  background: #4285F4;
+  width: 100%;
+  border: 0;
+  border-radius: 4px;
+  padding: 12px 20px;
+  color: #FFFFFF;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: 500;
+  line-height: inherit;
+  text-transform: uppercase;
+  cursor: pointer;
 }
-.main-nav-container.style2 .logo-container,
-.main-nav-container.fixed .logo-container{
-    padding-bottom: 50px;
+.book-table-wrapper {
+  padding: 25px 0 25px 0;
 }
-.main-nav-container .main-nav{
-    padding-top: 33px;
-    padding-bottom: 18px;
-    padding-left: 42px;
-    text-align: left;
-    position: relative;
+section.padded {
+  padding: 50px 0 50px 0;
 }
-.main-nav-container .main-nav ul li{
-    margin-bottom: 32px;
-    position: relative;
-}
-.main-nav .sub-menu{
-    display: none;
-    margin-top: 35px;
-}
-
-/**********************************************************************************************
-                                4.1. MAIN NAV - Various Styles
-***********************************************************************************************/
-
-.main-nav-container.horizontal{
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: auto;
-    width: 100%;
-    height: auto;
-    text-align: left;
-    padding: 0;
-    overflow: visible !important;
-    -webkit-transform: translateX(0) translateY(0) translateZ(0);
-    -ms-transform:     translateX(0) translateY(0) translateZ(0);
-    transform:         translateX(0) translateY(0) translateZ(0);
-    -webkit-transition: background-color 0.3s ease;
-    -moz-transition:    background-color 0.3s ease;
-    transition:         background-color 0.3s ease;
-}
-.main-nav-container.horizontal.default {
-    position: fixed;
-}
-.main-nav-container.horizontal.default:before {
-    content: '';
-    display: inline-block;
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 0;
-    -webkit-transition: all 0.3s ease;
-    -moz-transition:    all 0.3s ease;
-    transition:         all 0.3s ease;
-    background: -moz-linear-gradient(top,  rgba(36,41,45,0.75) 0%, rgba(0,0,0,0) 100%);
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(36,41,45,0.75)), color-stop(100%,rgba(0,0,0,0)));
-    background: -webkit-linear-gradient(top,  rgba(36,41,45,0.75) 0%,rgba(0,0,0,0) 100%);
-    background: -o-linear-gradient(top,  rgba(36,41,45,0.75) 0%,rgba(0,0,0,0) 100%);
-    background: -ms-linear-gradient(top,  rgba(36,41,45,0.75) 0%,rgba(0,0,0,0) 100%);
-    background: linear-gradient(to bottom,  rgba(36,41,45,0.75) 0%,rgba(0,0,0,0) 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#bf24292d', endColorstr='#00000000',GradientType=0 );
-}
-.main-nav-container.horizontal .top-bar{
-    border-bottom: 1px solid #e0d9d1;
-    padding: 16px 60px 0;
-}
-.main-nav-container.horizontal.default .top-bar{
-    border-bottom-color: rgba(255, 255, 255, 0.5);
-}
-.main-nav-container.horizontal .contact-info-container {
-    padding: 0;
-}
-.main-nav-container.horizontal .contact-info {
-    font-family: 'nevis-Bold', sans-serif;
-    font-size: 12px;
-    text-transform: uppercase;
-    color: #222;
-    display: table;
-    margin-right: 35px;
-    margin-bottom: 10px;
-    vertical-align: middle;
-    float: left;
-}
-.main-nav-container.horizontal.default .contact-info,
-.main-nav-container.horizontal.default .contact-info p {
-    color: rgba(255, 255, 255, 0.8);
-}
-.main-nav-container.horizontal .contact-info img{
-    display: table-cell;
-    vertical-align: middle;
-    margin-right: 10px;
-}
-.main-nav-container.horizontal .contact-info p{
-    font-family: 'nevis-Bold', sans-serif;
-    font-size: 10px;
-    display: table-cell;
-    vertical-align: middle;
-}
-.main-nav-container.horizontal .socials-container{
-    text-align: right;
-    padding-top: 1px;
-    margin-bottom: 0;
-}
-.main-nav-container.horizontal.default .socials-container li a:hover{
-    opacity: 0.7;
-}
-.main-nav-container.horizontal .bottom-bar{
-    padding: 33px 60px;
-}
-.main-nav-container.horizontal .main-nav{
-    border-bottom: none;
-    padding: 8px 0 0;
-    text-align: right;
-}
-.main-nav-container.horizontal .main-nav li{
-    font-family: 'bebas_neue', sans-serif;
-    font-size: 18px;
-    font-weight: 700;
-    margin-bottom: 0;
-    margin-left: 30px;
-    display: inline-block;
-}
-.main-nav-container.horizontal.default .main-nav li{
-    margin-left: 40px;
-    font-family: 'nevis-Bold', sans-serif;
-    font-size: 14px;
-}
-.main-nav-container.horizontal.default.alternative .main-nav li{
-    font-family: 'Open Sans', sans-serif;
-    font-size: 12px;
-    font-weight: 400;
-}
-.main-nav-container.horizontal .main-nav li a{
-    background: none;
-    font-size: inherit;
-    color: #222;
-    padding: 0 5px 3px;
-    border-bottom: 2px solid transparent;
-}
-.main-nav-container.horizontal .main-nav li a:hover,
-.main-nav-container.horizontal .main-nav li.active a{
-    color: #bc8b5f;
-    border-bottom-color: #be8b52;
-}
-.main-nav-container.horizontal.default .main-nav li a{
-    color: #ffffff;
-    padding-right: 2px;
-    padding-left: 2px;
-}
-.header-stuck .main-nav-container.horizontal.default .main-nav li a{
-    color: #222a2c;
-}
-.main-nav-container.horizontal.default .main-nav li a:hover,
-.main-nav-container.horizontal.default .main-nav li.active a{
-    border-bottom-color: #ffffff;
-}
-.main-nav-container.horizontal .main-nav .dropdown .sub-menu{
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    margin-top: 25px;
-    min-width: 250px;
-    padding: 35px 20px 0;
-    z-index: 10;
-    text-align: center;
-    -webkit-transform: translateX(-50%);
-    -moz-transform:    translateX(-50%);
-    -ms-transform:     translateX(-50%);
-    transform:         translateX(-50%);
-}
-.header-stuck .main-nav-container.horizontal .main-nav .dropdown .sub-menu{
-    background-color: #ffffff;
-}
-.main-nav-container.horizontal .main-nav .dropdown .sub-menu .sub-menu {
-    position: relative;
-    top: auto;
-    left: auto;
-    margin: 0;
-    padding-top: 25px;
-    min-width: none;
-    -webkit-transform: translateX(0);
-    -moz-transform:    translateX(0);
-    -ms-transform:     translateX(0);
-    transform:         translateX(0);
-}
-.main-nav-container.horizontal .main-nav .dropdown .sub-menu li{
-    display: block;
-    margin-left: 0;
-    margin-bottom: 30px;
-}
-.main-nav-container.horizontal .main-nav li.default-skin:hover a{
-    border-bottom-color: #ff803f;
-}
-.main-nav-container.horizontal .main-nav li.organic-skin:hover a{
-    border-bottom-color: #98b716;
-}
-.main-nav-container.horizontal + .wrapper .main-header .logo-container {
-    padding-top: 140px;
-}
-.main-nav-container.horizontal + .wrapper .main-header .top-banner-container{
-    /*height: 630px;*/
-}
-.main-nav-container.horizontal + .wrapper .main-header .top-banner-container .top-banner{
-    /*top: 60%;*/
-}
-.main-nav-container.horizontal + .wrapper .main-header .shopping-cart{
-    top: 180px;
-    right: auto;
-    left: 0;
-}
-.main-nav-container.horizontal + .wrapper .main-header .shopping-cart .cart-items{
-    right: auto;
-    left: 0;
-}
-
-/**********************************************************************************************
-                                    4.2. MAIN NAV - Media Queries
-***********************************************************************************************/
-@media (min-width: 1200px) and (max-width: 1360px){
-
-    .main-nav-container.fixed {
-      width: 300px;
-      padding: 57px 48px;
-    }
-}
-@media screen and (min-width: 1200px) and (max-width: 1600px){
-
-    .main-nav-container.horizontal .contact-info{
-        margin-right: 11px;
-    }
-    .main-nav-container.horizontal .main-nav li{
-        margin-left: 15px;
-    }
-}
-@media screen and (max-width: 1199px){
-
-    body.fixed-menu .main-nav-container.fixed,
-    body.fixed-menu > .main-nav-trigger{
-        display: none;
-    }
-    body.fixed-menu .mobile-nav-container{
-        display: block;
-    }
-}
-@media screen and (min-width: 992px) and (max-width: 1199px){
-
-    body.fixed-menu.frame-on .wrapper {
-        padding-top: 0;
-        padding-left: 12px;
-    }
-    .main-nav-container.horizontal .contact-info{
-        margin-right: 20px;
-        width: 45%;
-    }
-    .main-nav-container.horizontal .main-nav li{
-        margin-left: 15px;
-    }
-    .main-nav-container.horizontal .socials-container{
-        padding-top: 18px;
-    }
-    .frame-on .mobile-nav-container{
-        padding: 27px 27px 18px;
-    }
-    .frame-on .mobile-nav-container .main-nav-trigger {
-        right: 27px;
-        margin-top: 15px;
-    }
-}
-@media (min-width: 992px){
-
-    .mobile-nav-container{
-        display: none;
-    }
-
-}
-@media (max-width: 991px){
-
-    .main-nav-trigger:not(.mobile-nav-trigger){
-        display: none;
-    }
-    .main-nav-container{
-        display: none !important;
-    }
-  }
