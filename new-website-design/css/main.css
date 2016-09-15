@@ -38,8 +38,12 @@ button {
   cursor: pointer;
 }
 .book-table-wrapper {
-  padding: 25px 0 25px 0;
+  padding: 20px 0 20px 0;
+  height: 80px;
 }
 section.padded {
   padding: 50px 0 50px 0;
+}
+section.dark {
+  background: #66584F;
 }
