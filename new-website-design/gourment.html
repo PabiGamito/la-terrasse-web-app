@@ -224,16 +224,7 @@
 						<input type="text" name="book-time" id="book-time" placeholder="Heure">
 					</div>
 					<div class="book-form-input col-md-2">
-						<select class="custom-dropdown" name="book-size" id="book-size">
-							<option value="-1" selected>Nombre de Personnes</option>
-							<option value="1">1</option>
-							<option value="2">2</option>
-							<option value="3">3</option>
-							<option value="4">4</option>
-							<option value="5">5</option>
-							<option value="10">10</option>
-							<option value="15">15</option>
-						</select>
+						<input type="number" name="book-size" id="book-size" placeholder="Nombre de Personnes">
 					</div>
 					<div class="book-form-input col-md-2">
 						<button type="submit" id="book-submit" class="res-button"><span>Réserver</span>
@@ -244,8 +235,70 @@
 		</div>
 	</section>
 
-	</script>
-	<script type='text/javascript' src='http://gustave2.gourmetwp.staging.wpengine.com/wp-content/themes/gourmet/js/main.js?ver=100'></script>
+	<section class="section fullwidth light">
+		Vous souhaitez déjeuner dans une ambiance chaleureuse, dans un cadre rafiné ou en terrasse ? Jean-Marc Schirrmeister vous accueille dans son nouveau restaurant à Saint Germain au Mont d'Or, à deux pas de Lyon, entre Neuville sur Saône, Quincieux et Chasselay. La Terrasse de Saint Germain vous propose des mets de qualité concoctés avec soin par notre chef Stéphane. C'est également à base de produits frais avec des préparations maison que Tonio, Pizzaïolo authentique vous préparera des pizzas savoureuses.
+
+		Nous sommes ouverts tous les midis, du lundi au samedi et tous les soirs du mercredi au samedi. Que vous soyez seuls, en famille, entre amis ou en groupes, vous trouverez toutes les raisons de passer un moment de détente et de convivialité. Voici les services que nous vous proposons tout au long de l'année :
+	</section>
+
+	<section class="map">
+		<div class="map-container wow fadeInDown animated" style="visibility: visible; animation-name: fadeInDown;">
+			<div id="google-map" class="google-container google-container-footer-def" data-address="1600 Amphitheatre Pkwy Mountain View, CA 94043" data-marker="http://gourmetwp.wpengine.com/wp-content/themes/gourmet/img/template-assets/map-marker.png" data-color="#bd8c60" style="position: relative; overflow: hidden; background-color: rgb(229, 227, 223);">
+
+			</div>
+		</div><!-- /map-container -->
+	</section>
+	<footer class="main-footer dark-bg" data-midnight="dark">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-3 align-center">
+					<div class="logo-container fadeInLeft">
+		<a class="" href="http://gourmetwp.wpengine.com/" title="Gourmet WordPress Theme">
+			<img src="http://gourmetwp.wpengine.com/wp-content/uploads/2016/04/logo-light-blue.png" alt="Gourmet WordPress Theme">		</a>
+	</div><!-- /logo-container -->
+						<div class="socials-container">
+		<ul>
+			<li class="wow fadeInLeft animated" data-wow-delay="0.0s" style="visibility: visible; animation-delay: 0s; animation-name: fadeInLeft;"><a href="http://facebook.com" target="blank"><i class=" fa fa-facebook"></i></a></li>		<li class="wow fadeInLeft animated" data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeInLeft;"><a href="http://twitter.com" target="blank"><i class=" fa fa-twitter"></i></a></li>		<li class="wow fadeInLeft animated" data-wow-delay="0.2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInLeft;"><a href="http://plus.google.com" target="blank"><i class=" fa fa-google-plus"></i></a></li>		<li class="wow fadeInLeft animated" data-wow-delay="0.3s" style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInLeft;"><a href="http://instagram.com" target="blank"><i class=" fa fa-instagram"></i></a></li>				</ul>
+	</div><!-- /socials-container -->
+			</div><!-- /col-md-3 -->
+			<div class="col-md-6 fadeInDown">
+				<div class="contact-form-contaienr">
+					<div class="section-title">
+						<h1>Contact Us</h1>
+					</div>
+					<form id="contact-form" class="footer-contact-form" method="post" action="http://gourmetwp.wpengine.com/">
+						<input type="hidden" id="wpnonce_footer_form" name="wpnonce_footer_form" value="7ca373d628"><input type="hidden" name="_wp_http_referer" value="/">						<input type="text" id="name" class="name" name="name" placeholder="Name*" required="" value="">
+						<input type="email" id="email" class="email" name="email" placeholder="Email*" required="" value="">
+						<textarea id="message" class="message" name="message" rows="6" placeholder="Message" required=""></textarea><grammarly-btn><div style="z-index: 2; opacity: 1; transform: translate(494px, 338px);" class="_9b5ef6-textarea_btn _9b5ef6-not_focused" data-grammarly-reactid=".0"><div class="_9b5ef6-transform_wrap" data-grammarly-reactid=".0.0"><div title="Protected by Grammarly" class="_9b5ef6-status" data-grammarly-reactid=".0.0.0">&nbsp;</div></div></div></grammarly-btn>
+						<button type="submit" class="ff-submit">Send Message</button>
+					</form>
+					<div id="form-messages" style="display: none;"></div>
+				</div><!-- /contact-form-container -->
+			</div><!-- /col-md-6 -->
+			<div class="col-md-3 fadeInRight">
+				<div class="address-container">
+					<address>
+													<img src="http://gourmetwp.wpengine.com/wp-content/themes/gourmet/img/template-assets/map-pin.png" alt="Address">
+							<p><span>The Gourmet.
+</span><span>PO Box 21177
+</span><span>Little Lonsdale St, Melbourne
+</span><span>Victoria 8011 Australia</span></p>
+													<img src="http://gourmetwp.wpengine.com/wp-content/themes/gourmet/img/template-assets/phone-icon.png" alt="Phone">
+							<p><span>Phone: (415) 124-5678
+</span><span>Fax: (415) 124-5678</span></p>
+													<img src="http://gourmetwp.wpengine.com/wp-content/themes/gourmet/img/template-assets/mail-icon2.png" alt="Email">
+							<p><span>support@yourname.com</span></p>
+					</address>
+				</div><!-- /address-container -->
+			</div><!-- /col-md-3 -->
+			<div class="copyright col-md-12 fadeInUp" data-wow-delay="0.7s">
+				<p>© 2016 Gourmet. All Rights Reserved</p>
+			</div><!-- /copyright -->
+		</div><!-- /row -->
+	</div><!-- /container -->
+</footer>
+
+
 </body>
 
 <!-- Mirrored from gustave2.gourmetwp.staging.wpengine.com/ by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 11 Sep 2016 16:51:08 GMT -->

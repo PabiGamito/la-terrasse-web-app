@@ -47,3 +47,119 @@ section.padded {
 section.dark {
   background: #66584F;
 }
+
+/*FOOTER*/
+
+.main-footer{
+    background: #23292c;
+    color: #73848e;
+    padding-top: 65px;
+    padding-bottom: 35px;
+}
+.main-footer .logo-container{
+    margin-bottom: 49px;
+}
+.main-footer .socials-container ul li{
+    margin: 0 10px 19px;
+}
+.main-footer .socials-container ul li a{
+    color: #6c7c85;
+}
+.main-footer .socials-container ul li a:hover{
+    color: white;
+}
+.main-footer .contact-form-contaienr{
+    background: white;
+    padding: 17px 30px 40px;
+    margin-top: -230px;
+    position: relative;
+    z-index: 10;
+}
+.main-footer .contact-form-contaienr .section-title h1{
+    color: #0b2b33;
+    margin-bottom: 4px;
+}
+.main-footer .copyright{
+    text-align: center;
+    margin-top: 40px;
+}
+.main-footer .copyright p{
+    font-size: 12px;
+}
+.main-footer .address-container address img{
+    float: left;
+    overflow: hidden;
+    margin-right: 17px;
+}
+.main-footer .address-container address p{
+    font-size: 13px;
+    line-height: 20px;
+    display: block;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+.main-footer .address-container address p span{
+    display: block;
+}
+.contact-info-container{
+    padding: 130px 83px 115px;
+    text-align: left;
+}
+.contact-info-container .section-title{
+    text-align: left;
+    margin-bottom: 85px;
+}
+.white-bg .contact-info-container{
+    color: #23292c;
+}
+.contact-info-container .contact-info p{
+    font-family: "Palatino Linotype", Palatino, "Book Antiqua", "URW Palladio L", serif;
+    font-size: 18px;
+    line-height: 24px;
+    text-transform: uppercase;
+    margin-bottom: 40px;
+}
+.contact-info-container .contact-info figure{
+    position: relative;
+    top: -3px;
+    margin-right: 18px;
+    min-width: 35px;
+    float: left;
+    text-align: center;
+}
+.contact-info-container .custom-button{
+    margin-top: 35px;
+}
+.main-footer .bottom-bar{
+    background: #23292c;
+    padding-top: 59px;
+    padding-bottom: 47px;
+}
+.frame-on .main-footer .bottom-bar{
+    /*margin-bottom: 12px;*/
+}
+.main-footer .bottom-bar > .container > .row {
+    display: table;
+    width: 100%;
+}
+.main-footer .bottom-bar > .container > .row > [class^=col-]{
+    display: table-cell;
+    vertical-align: middle;
+    float: none;
+}
+.main-footer .bottom-bar .copyright,
+.main-footer .bottom-bar .logo-container{
+    margin: 0;
+}
+.main-footer .bottom-bar .socials-container ul li{
+    margin-bottom: 0;
+}
+.main-footer .bottom-bar .socials-container ul li a{
+    color: #868a8b;
+}
+.main-footer .bottom-bar .socials-container ul li a:hover{
+    color: white;
+}
+.main-footer .bottom-bar .copyright{
+    text-align: left;
+}

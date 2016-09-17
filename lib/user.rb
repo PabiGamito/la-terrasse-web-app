@@ -12,4 +12,5 @@ class User
 
   has n, :orders
   has n, :combined_orders
+  has n, :reservations
 end
