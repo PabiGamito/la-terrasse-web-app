@@ -1,3 +1,11 @@
+h1 {
+  font-size: 50px;
+}
+#map {
+  width: 100%;
+  height: 355px;
+}
+
 .book-form {
   font-family: "Roboto", sans-serif;
   font-size: 14px;
@@ -11,7 +19,7 @@ input {
   border-radius: 4px;
   box-sizing: border-box;
   padding: 12px 20px;
-  color: rgba(0, 0, 0, 0.6);
+  color: rgba(255, 255, 255, 0.6);
   font-family: inherit;
   font-size: inherit;
   font-weight: 500;
@@ -20,7 +28,7 @@ input {
   transition: 0.3s ease;
 }
 input:focus {
-  color: rgba(0, 0, 0, 0.8);
+  color: rgba(255, 255, 255, 0.8);
 }
 button {
   outline: none;
@@ -45,10 +53,12 @@ section.padded {
   padding: 50px 0 50px 0;
 }
 section.dark {
-  background: #66584F;
+  background: #23292c;
 }
 
-/*FOOTER*/
+/* ****** */
+/* FOOTER */
+/* ****** */
 
 .main-footer{
     background: #23292c;
