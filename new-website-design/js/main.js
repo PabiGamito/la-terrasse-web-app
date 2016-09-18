@@ -23,3 +23,5 @@ $(".learn-more").click(function(){
     scrollTop: $(".book-table-wrapper").offset().top
   }, 1000);
 });
+
+$('.parallax-window').parallax({imageSrc: '/path/to/image.jpg'});

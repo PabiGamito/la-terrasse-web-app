@@ -14,7 +14,15 @@
 	<link rel="stylesheet" type="text/css" href="revolution/css/navigation.css">
 	<link rel="stylesheet" type="text/css" href="revolution/css/settings.css">
 
+	<!-- Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Josefin+Slab" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300" rel="stylesheet">
+
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+	<!-- Parallax -->
+	<script src="js/parallax.min.js"></script>
+
 	<!-- RS5.0 Core JS Files -->
 	<script type="text/javascript" src="revolution/js/jquery.themepunch.tools.min.js?rev=5.0"></script>
 	<script type="text/javascript" src="revolution/js/jquery.themepunch.revolution.min.js?rev=5.0"></script>
@@ -22,7 +30,7 @@
 	<script type="text/javascript" src="revolution/js/extensions/revolution.extension.layeranimation.min.js"></script>
 	<script type="text/javascript" src="revolution/js/extensions/revolution.extension.navigation.min.js"></script>
 	<script type="text/javascript" src="revolution/js/extensions/revolution.extension.parallax.min.js"></script>
-	<script type="text/javascript" src="revolution/extensions/revolution.extension.actions.min.js"></script>
+	<!-- <script type="text/javascript" src="revolution/extensions/revolution.extension.actions.min.js"></script> -->
 	<script type="text/javascript" src="http://gustave2.gourmetwp.staging.wpengine.com/wp-content/plugins/revslider/public/assets/js/extensions/revolution.extension.actions.min.js"></script>
 </head>
 
@@ -31,7 +39,7 @@
 	<div class="mobile-nav-container clearfix">
 		<div class="logo-container ">
 			<a class="" href="index.html" title="La Terrasse">
-				<img src="../gourmetwp.staging.wpengine.com/wp-content/uploads/2015/09/logo-new.png" alt="La Terrasse de Saint-Germain" /> </a>
+				<img src="img/dark-logo.png" alt="La Terrasse de Saint-Germain" /> </a>
 		</div>
 		<!-- /logo-container -->
 
@@ -63,6 +71,10 @@
 								<img src="http://gustave2.gourmetwp.staging.wpengine.com/wp-content/uploads/sites/19/2015/09/icon-phone1-small-white.png" alt="" />
 								<p>+33 4 72 26 09 82</p>
 							</div>
+							<div class="contact-info clearfix">
+								<img src="http://true.gourmetwp.wpengine.com/wp-content/uploads/sites/8/2015/09/clock-small-white.png" alt="" />
+								<p>Lun-Sam 11:30-14:00. Mer-Sam 19:00-23:30</p>
+							</div>
 						</div>
 						<!-- /contact-info-container -->
 					</div>
@@ -92,7 +104,9 @@
 					<div class="col-md-4">
 						<div class="logo-container">
 							<a href="/" title="La Terrasse de Saint-Germain">
-								<!-- <img class="logo" src="http://la-terrasse-pizzeria.fr/images/logo.png" alt="La Terrasse de Saint-Germain" /></a> -->
+								<img class="white-logo" src="img/Logo-La-Terrasse-White.png" alt="La Terrasse de Saint-Germain" />
+								<img class="dark-logo" src="img/dark-logo.png" alt="La Terrasse de Saint-Germain" />
+							</a>
 						</div>
 						<!-- /logo-container -->
 					</div>
@@ -208,39 +222,72 @@
 	</section>
 
 	<section class="section fullwidth dark">
-		<div class="container">
-			<div class="book-table-wrapper">
-				<form class="book-form">
-					<div class="book-form-input col-md-2">
-						<input type="text" name="book-name" id="book-name" placeholder="Nom">
-					</div>
-					<div class="book-form-input col-md-2">
-						<input type="email" name="book-email" id="book-email" placeholder="Email">
-					</div>
-					<div class="book-form-input col-md-2">
-						<input class="datepicker" name="book-date" type="text" id="book-date" placeholder="JJ/MM/AA">
-					</div>
-					<div class="book-form-input col-md-2">
-						<input type="text" name="book-time" id="book-time" placeholder="Heure">
-					</div>
-					<div class="book-form-input col-md-2">
-						<input type="number" name="book-size" id="book-size" placeholder="Nombre de Personnes">
-					</div>
-					<div class="book-form-input col-md-2">
-						<button type="submit" id="book-submit" class="res-button"><span>Réserver</span>
-						</button>
-					</div>
-				</form>
-			</div>
+		<div class="book-table-wrapper">
+			<form class="book-form">
+				<div class="book-form-input col-md-2">
+					<input type="text" name="book-name" id="book-name" placeholder="Nom">
+				</div>
+				<div class="book-form-input col-md-2">
+					<input type="email" name="book-email" id="book-email" placeholder="Email">
+				</div>
+				<div class="book-form-input col-md-2">
+					<input class="datepicker" name="book-date" type="text" id="book-date" placeholder="JJ/MM/AA">
+				</div>
+				<div class="book-form-input col-md-2">
+					<input type="text" name="book-time" id="book-time" placeholder="Heure">
+				</div>
+				<div class="book-form-input col-md-2">
+					<input type="number" name="book-size" id="book-size" placeholder="Nombre de Personnes">
+				</div>
+				<div class="book-form-input col-md-2">
+					<button type="submit" id="book-submit" class="res-button"><span>Réserver</span>
+					</button>
+				</div>
+			</form>
 		</div>
 	</section>
 
 	<section class="section fullwidth light padded">
 		<div class="container">
-			<img src="https://media-cdn.tripadvisor.com/media/photo-s/0c/6e/94/9e/la-terrasse.jpg" alt="La Terrasse Interior" />
-			Vous souhaitez déjeuner dans une ambiance chaleureuse, dans un cadre rafiné ou en terrasse ? Jean-Marc Schirrmeister vous accueille dans son nouveau restaurant à Saint Germain au Mont d'Or, à deux pas de Lyon, entre Neuville sur Saône, Quincieux et Chasselay. La Terrasse de Saint Germain vous propose des mets de qualité concoctés avec soin par notre chef Stéphane. C'est également à base de produits frais avec des préparations maison que Tonio, Pizzaïolo authentique vous préparera des pizzas savoureuses.
+			<div class="row">
+				<div class="col-md-6">
+					<img src="https://media-cdn.tripadvisor.com/media/photo-s/0c/6e/94/9e/la-terrasse.jpg" alt="La Terrasse Interior" />
+				</div>
+				<div class="col-md-6">
+					<p>
+						Vous souhaitez déjeuner dans une ambiance chaleureuse, dans un cadre rafiné ou en terrasse ? Jean-Marc Schirrmeister vous accueille dans son nouveau restaurant à Saint Germain au Mont d'Or, à deux pas de Lyon, entre Neuville sur Saône, Quincieux et Chasselay. La Terrasse de Saint Germain vous propose des mets de qualité concoctés avec soin par notre chef Stéphane. C'est également à base de produits frais avec des préparations maison que Tonio, Pizzaïolo authentique vous préparera des pizzas savoureuses.
+					</p>
 
-			Nous sommes ouverts tous les midis, du lundi au samedi et tous les soirs du mercredi au samedi. Que vous soyez seuls, en famille, entre amis ou en groupes, vous trouverez toutes les raisons de passer un moment de détente et de convivialité. Voici les services que nous vous proposons tout au long de l'année :
+					<!-- Nous sommes ouverts tous les midis, du lundi au samedi et tous les soirs du mercredi au samedi. Que vous soyez seuls, en famille, entre amis ou en groupes, vous trouverez toutes les raisons de passer un moment de détente et de convivialité. Voici les services que nous vous proposons tout au long de l'année : -->
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="section fullwidth parrallax">
+		<div class="parallax-window" data-parallax="scroll" data-image-src="img/slide1.jpg">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-2">
+						Terrasse
+					</div>
+					<div class="col-md-2">
+						Brasserie
+					</div>
+					<div class="col-md-2">
+						Pizzeria
+					</div>
+					<div class="col-md-2">
+						Vins
+					</div>
+					<div class="col-md-2">
+						Soirées
+					</div>
+					<div class="col-md-2">
+						Emporter
+					</div>
+				</div>
+			</div>
 		</div>
 	</section>
 

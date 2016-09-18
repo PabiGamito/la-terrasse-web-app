@@ -12,10 +12,26 @@
 .main-nav-container a:hover{
     color: white;
 }
-.main-nav-container .logo-container{
+.main-nav-container .logo-container {
+    margin-top: -30px;
     display: block;
-    width: 100%;
+    height: 80px;
     position: relative;
+}
+.main-nav-container .logo-container img {
+  height: 100%;
+}
+.main-nav-container.small .logo-container .white-logo {
+  display: none;
+}
+.main-nav-container .logo-container .white-logo {
+  display: block;
+}
+.main-nav-container.small .logo-container .dark-logo {
+  display: block;
+}
+.main-nav-container .logo-container .dark-logo {
+  display: none;
 }
 .main-nav-container .main-nav ul li{
     margin-bottom: 32px;
@@ -143,18 +159,15 @@
 .main-nav-container.horizontal .main-nav li a{
     background: none;
     font-size: inherit;
+    font-weight: bold;
     color: #222;
     padding: 0 5px 3px;
     border-bottom: 2px solid transparent;
     text-transform: uppercase;
 }
-.main-nav-container.horizontal .main-nav li a:hover,
-.main-nav-container.horizontal .main-nav li.active a{
-    color: #bc8b5f;
-    border-bottom-color: #be8b52;
-}
 .main-nav-container.horizontal.default .main-nav li a{
     color: #ffffff;
+    text-decoration: none;
     padding-right: 2px;
     padding-left: 2px;
 }
