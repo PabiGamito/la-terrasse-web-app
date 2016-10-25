@@ -1,3 +1,10 @@
+// Mobile navbar
+$(".toggle-mnu").click(function() {
+  $(this).toggleClass("on");
+  $(".menu").slideToggle();
+  return false;
+});
+
 var didScroll;
 // on scroll, let the interval function know the user has scrolled
 $(window).scroll(function(event){
@@ -24,4 +31,4 @@ $(".learn-more").click(function(){
   }, 1000);
 });
 
-$('.parallax-window').parallax({imageSrc: '/path/to/image.jpg'});
+$('.parallax-window').parallax({imageSrc: 'img/parallax1.jpg'});
