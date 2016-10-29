@@ -203,6 +203,9 @@ section.testimonial blockquote .author {
     color: #0b2b33;
     margin-bottom: 4px;
 }
+.main-footer .contact-form-contaienr .section-title p {
+  color: #0b2b33;
+}
 .main-footer .copyright{
     text-align: center;
     margin-top: 40px;

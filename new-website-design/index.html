@@ -8,6 +8,7 @@
 	<link rel='stylesheet' href='css/reset.css' type='text/css' media='all' />
 	<link rel='stylesheet' href='css/navbar.css' type='text/css' media='all' />
 	<link rel='stylesheet' href='css/main.css' type='text/css' media='all' />
+	<link rel="stylesheet" href="css/animations.css" type='text/css' media='all' />
 
 	<!-- RS5.0 Layers and Navigation Styles -->
 	<link rel="stylesheet" type="text/css" href="revolution/css/layers.css">
@@ -20,7 +21,7 @@
 	<link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Berkshire+Swash" rel="stylesheet">
 
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 
 	<!-- Parallax -->
 	<script src="js/parallax.min.js"></script>
@@ -259,9 +260,9 @@
 
 	<section class="section fullwidth light">
 		<!-- <div class="container"> -->
-			<div class="row vertical-align">
-				<div class="col-md-6" style="padding: 50px;">
-					<h1 >Votre Pizzeria et Restaurant à St Germain au Mont d'Or</h1>
+			<div class="row vertical-align animatedParent animateOnce" data-appear-top-offset='-50'>
+				<div class="col-md-6 animated bounceInLeft" style="padding: 50px;">
+					<h1>Votre Pizzeria et Restaurant à St Germain au Mont d'Or</h1>
 					<p>
 						Vous souhaitez déjeuner dans une ambiance chaleureuse, dans un cadre rafiné ou en terrasse ? Jean-Marc Schirrmeister vous accueille dans son nouveau restaurant à Saint Germain au Mont d'Or, à deux pas de Lyon, entre Neuville sur Saône, Quincieux et Chasselay. La Terrasse de Saint Germain vous propose des mets de qualité concoctés avec soin par notre chef Stéphane. C'est également à base de produits frais avec des préparations maison que Tonio, Pizzaïolo authentique vous préparera des pizzas savoureuses.
 					</p>
@@ -275,30 +276,30 @@
 		<!-- </div> -->
 	</section>
 
-	<section class="section fullwidth padded dark quick-look">
+	<section class="section fullwidth padded dark quick-look animatedParent animateOnce">
 		<div class="container">
 			<div class="row">
-				<div class="col-md-2 col-xs-6">
+				<div class="col-md-2 col-xs-6 animated growIn">
 					<img src="img/icons/sun.svg" alt="" />
 					<p>Terrasse</p>
 				</div>
-				<div class="col-md-2 col-xs-6">
+				<div class="col-md-2 col-xs-6 animated growIn delay-100">
 					<img src="img/icons/restaurant.svg" alt="" />
 					<p>Brasserie</p>
 				</div>
-				<div class="col-md-2 col-xs-6">
+				<div class="col-md-2 col-xs-6 animated growIn delay-200">
 					<img src="img/icons/pizzas.svg" alt="" />
 					<p>Pizzeria</p>
 				</div>
-				<div class="col-md-2 col-xs-6">
+				<div class="col-md-2 col-xs-6 animated growIn delay-300">
 					<img src="img/icons/wine.svg" alt="" />
 					<p>Vins</p>
 				</div>
-				<div class="col-md-2 col-xs-6">
+				<div class="col-md-2 col-xs-6 animated growIn delay-400">
 					<img src="img/icons/toast.svg" alt="" />
 					<p>Soirées</p>
 				</div>
-				<div class="col-md-2 col-xs-6">
+				<div class="col-md-2 col-xs-6 animated growIn delay-500">
 					<img src="img/icons/logout.svg" alt="" />
 					<p>Emporter</p>
 				</div>
@@ -442,10 +443,10 @@
 		</script>
 	</section>
 	<footer class="main-footer dark-bg" data-midnight="dark">
-	<div class="container">
+	<div class="container animatedParent animateOnce">
 		<div class="row">
 			<div class="col-md-3 align-center">
-	<div class="logo-container fadeInLeft not-mobile">
+	<div class="logo-container animated fadeInLeft not-mobile">
 		<img class="logo" src="img/Logo-La-Terrasse-White.png" alt="La Terrasse de Saint-Germain" />
 	</div><!-- /logo-container -->
 	<div class="socials-container">
@@ -454,7 +455,7 @@
 		</ul> -->
 	</div><!-- /socials-container -->
 			</div><!-- /col-md-3 -->
-			<div class="col-md-6 fadeInDown">
+			<div class="col-md-6 animated fadeInDown">
 				<div class="contact-form-contaienr not-mobile">
 					<div class="section-title">
 						<h1>Nos coordonnées</h1>
@@ -472,7 +473,7 @@
 					<div id="form-messages" style="display: none;"></div>
 				</div><!-- /contact-form-container -->
 			</div><!-- /col-md-6 -->
-			<div class="col-md-3 fadeInRight">
+			<div class="col-md-3 animated fadeInRight">
 				<div class="address-container">
 					<address>
 						<img src="http://gourmetwp.wpengine.com/wp-content/themes/gourmet/img/template-assets/map-pin.png" alt="Address">
@@ -487,7 +488,7 @@
 					</address>
 				</div><!-- /address-container -->
 			</div><!-- /col-md-3 -->
-			<div class="copyright col-md-12 fadeInUp" data-wow-delay="0.7s">
+			<div class="copyright col-md-12 animated fadeInUp delay-700">
 				<p>© 2016 Lounge'n Tasty. Tous les droits sont réservés</p>
 			</div><!-- /copyright -->
 		</div><!-- /row -->
@@ -495,6 +496,8 @@
 </footer>
 
 <script type="text/javascript" src="js/main.js"></script>
+<!-- Animations JS -->
+<script type="text/javascript" src="js/css3-animate-it.js"></script>
 
 </body>
 
