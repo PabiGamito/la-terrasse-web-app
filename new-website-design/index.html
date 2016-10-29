@@ -76,7 +76,7 @@
 							</div>
 							<div class="contact-info clearfix">
 								<img src="http://true.gourmetwp.wpengine.com/wp-content/uploads/sites/8/2015/09/clock-small-white.png" alt="" />
-								<p>Lun-Sam 11:30-14:00. Mer-Sam 19:00-23:30</p>
+								<p>Lun-Sam 11:30-14:00. Jeu-Sam 19:00-23:30</p>
 							</div>
 						</div>
 						<!-- /contact-info-container -->
@@ -240,6 +240,7 @@
 					<input type="text" name="book-time" id="book-time" placeholder="Heure">
 				</div>
 				<div class="book-form-input col-md-2">
+					<!-- TODO: Max is 42 chairs -->
 					<input type="number" name="book-size" id="book-size" placeholder="Nombre de Personnes">
 				</div>
 				<div class="book-form-input col-md-2">
@@ -274,26 +275,32 @@
 		<!-- </div> -->
 	</section>
 
-	<section class="section fullwidth dark">
+	<section class="section fullwidth padded dark quick-look">
 		<div class="container">
 			<div class="row">
-				<div class="col-md-2">
-					Terrasse
+				<div class="col-md-2 col-xs-6">
+					<img src="img/icons/sun.svg" alt="" />
+					<p>Terrasse</p>
 				</div>
-				<div class="col-md-2">
-					Brasserie
+				<div class="col-md-2 col-xs-6">
+					<img src="img/icons/restaurant.svg" alt="" />
+					<p>Brasserie</p>
 				</div>
-				<div class="col-md-2">
-					Pizzeria
+				<div class="col-md-2 col-xs-6">
+					<img src="img/icons/pizzas.svg" alt="" />
+					<p>Pizzeria</p>
 				</div>
-				<div class="col-md-2">
-					Vins
+				<div class="col-md-2 col-xs-6">
+					<img src="img/icons/wine.svg" alt="" />
+					<p>Vins</p>
 				</div>
-				<div class="col-md-2">
-					Soirées
+				<div class="col-md-2 col-xs-6">
+					<img src="img/icons/toast.svg" alt="" />
+					<p>Soirées</p>
 				</div>
-				<div class="col-md-2">
-					Emporter
+				<div class="col-md-2 col-xs-6">
+					<img src="img/icons/logout.svg" alt="" />
+					<p>Emporter</p>
 				</div>
 			</div>
 		</div>
@@ -451,6 +458,10 @@
 				<div class="contact-form-contaienr not-mobile">
 					<div class="section-title">
 						<h1>Nos coordonnées</h1>
+						<p>
+							<!-- TODO: Formulate this correctly and nicely with the word devise -->
+							Contactez nous pour des réservations de groupe
+						</p>
 					</div>
 					<form id="contact-form" class="footer-contact-form" method="post" action="http://gourmetwp.wpengine.com/">
 						<input type="hidden" id="wpnonce_footer_form" name="wpnonce_footer_form" value="7ca373d628"><input type="hidden" name="_wp_http_referer" value="/">						<input type="text" id="name" class="name" name="name" placeholder="Name*" required="" value="">

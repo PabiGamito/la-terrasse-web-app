@@ -38,7 +38,7 @@ h1 {
   font-family: "Roboto", sans-serif;
   font-size: 14px;
 }
-input {
+input, textarea {
   outline: none;
   display: block;
   background: rgba(0, 0, 0, 0.1);
@@ -76,6 +76,12 @@ button {
 button:hover {
   background: #89644D;
 }
+footer input {
+  margin: 15px 0 15px 0;
+}
+footer textarea {
+  resize: none;
+}
 .book-table-wrapper {
   padding: 20px 0 20px 0;
   height: 100%;
@@ -103,6 +109,18 @@ section div > img {
   max-height: 600px;
   max-width: auto;
   overflow: hidden;
+}
+section.quick-look p {
+  text-align: center;
+  color: white;
+}
+section.quick-look img {
+  max-width: 80px;
+  border: 1px solid white;
+  padding: 10px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 section.food .col-sm-2 {
   padding: 0;

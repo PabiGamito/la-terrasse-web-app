@@ -321,10 +321,12 @@
   top: 25px;
   left: 25px;
   display: block;
-  width: 35px;
-  height: 35px;
+  width: 50px;
+  height: 40px;
   z-index: 10000;
   border-radius: 10px;
+  padding: 10px;
+  background: rgba(59, 59, 59, 0.76);
 }
 .toggle-mnu span:after, .toggle-mnu span:before {
   content: "";
